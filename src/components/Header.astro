@@ -1,0 +1,1248 @@
+---
+let QUERY, URLQUERY;
+
+//FETCH MENU ORGANISATION AND LOGO FROM GLOBAL
+QUERY = encodeURIComponent(`
+*[_type == "global"]{
+  links[]{
+    nom,
+    "url": url->slug,
+    subpages[]{
+      nom,
+      "url": url->slug
+    }
+  },
+  'logo': logo.asset->url,
+  "accent1Color": accent1Color.hex,
+  "textColor":textColor.hex,
+  "bgColor":bgColor.hex,
+  "accent2Color":accent2Color.hex
+}`);
+// Compose the URL for your project's endpoint and add the query
+// ⚠️ Don't forget to change PROJECT_ID & DATASET from .env
+URLQUERY = `https://${
+  import.meta.env.PROJECT_ID
+}.api.sanity.io/v2021-10-21/data/query/${
+  import.meta.env.DATASET
+}?query=${QUERY}`;
+// fetch the content
+// Global is a singleton, so you return the first element of the array (result[0])
+let data = await fetch(URLQUERY)
+  .then((res) => res.json())
+  .then(({ result }) => {
+    return result[0];
+  })
+  .catch((err) => console.error(err));
+
+let bgColor = data.bgColor;
+let textColor = data.textColor;
+let accent1Color = data.accent1Color;
+let accent2Color = data.accent2Color;
+---
+
+<header
+  class="f-header js-f-header hide-nav js-hide-nav js-hide-nav--main"
+  data-nav-target-class="f-header--expanded">
+  <div class="f-header__mobile-content mx-auto max-w-7xl px-4">
+    <a href="/" class="f-header__logo" title="Aller à l'accueil">
+      <img src={data.logo} />
+    </a>
+
+    <button
+      class="anim-menu-btn js-anim-menu-btn f-header__nav-control js-tab-focus"
+      aria-label="Ouvrir/Fermer le menu">
+      <i
+        class="anim-menu-btn__icon anim-menu-btn__icon--close"
+        aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <div class="f-header__nav" role="navigation">
+    <div
+      class="f-header__nav-grid lg:justify-between w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-7xl">
+      <div class="f-header__nav-logo-wrapper grow basis-0">
+        <a href="/" class="f-header__logo" title="Aller à l'accueil">
+          <img src={data.logo} />
+        </a>
+      </div>
+
+      <ul class="f-header__list grow basis-0 lg:justify-center">
+        {
+          data.links.map((el) => {
+            if (el.url) {
+              if (el.subpages) {
+                return (
+                  <li class="f-header__item">
+                    <a href={`/${el.url}`} class="f-header__link">
+                      <span>{el.nom}</span>
+                      <svg
+                        class="f-header__dropdown-icon icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+                        aria-hidden="true"
+                        viewBox="0 0 12 12">
+                        <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z" />
+                      </svg>
+                    </a>
+                    <ul class="f-header__dropdown">
+                      {el.subpages.map((item) => (
+                        <li>
+                          <a
+                            href={`/${item.url}`}
+                            class="f-header__dropdown-link">
+                            {item.nom}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              } else {
+                return (
+                  <li class="f-header__item">
+                    <a href={`/${el.url}`} class="f-header__link">
+                      {el.nom}
+                    </a>
+                  </li>
+                );
+              }
+            } else {
+              if (el.subpages) {
+                return (
+                  <li class="f-header__item">
+                    <div class="f-header__notlink">
+                      <span>{el.nom}</span>
+                      <svg
+                        class="f-header__dropdown-icon icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+                        aria-hidden="true"
+                        viewBox="0 0 12 12">
+                        <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z" />
+                      </svg>
+                    </div>
+                    <ul class="f-header__dropdown">
+                      {el.subpages.map((item) => (
+                        <li>
+                          <a
+                            href={`/${item.url}`}
+                            class="f-header__dropdown-link">
+                            {item.nom}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                );
+              } else {
+                return (
+                  <li class="f-header__item f-header__notlink">{el.nom}</li>
+                );
+              }
+            }
+          })
+        }
+      </ul>
+    </div>
+  </div>
+</header>
+
+<style define:vars={{ bgColor, textColor, accent1Color, accent2Color }}>
+  /* --------------------------------
+  File#: _1_anim-menu-btn
+  Title: Animated Menu Button
+  Descr: A menu button w/ a morphing icon
+  Usage: codyhouse.co/license
+  -------------------------------- */
+  :root {
+    --anim-menu-btn-size: 48px;
+    --anim-menu-btn-transition-duration: 0.2s;
+    --anim-menu-btn-icon-size: 32px;
+    --anim-menu-btn-icon-stroke: 2px;
+  }
+
+  .anim-menu-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--anim-menu-btn-size);
+    height: var(--anim-menu-btn-size);
+  }
+
+  .anim-menu-btn__icon {
+    position: relative;
+    display: block;
+    font-size: var(--anim-menu-btn-icon-size);
+    width: 1em;
+    height: var(--anim-menu-btn-icon-stroke);
+    color: inherit;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    transform: scale(1);
+  }
+  .anim-menu-btn__icon::before,
+  .anim-menu-btn__icon::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: inherit;
+    border-radius: inherit;
+  }
+
+  .anim-menu-btn__icon--close {
+    background-size: 100% 100%;
+    will-change: transform, background-size;
+    transition-property: transform, background-size;
+  }
+  .anim-menu-btn:active .anim-menu-btn__icon--close {
+    transform: scale(0.9);
+  }
+  .anim-menu-btn__icon--close::before,
+  .anim-menu-btn__icon--close::after {
+    will-change: inherit;
+    transition: inherit;
+  }
+  .anim-menu-btn__icon--close::before {
+    transform: translateY(-0.25em) rotate(0);
+  }
+  .anim-menu-btn__icon--close::after {
+    transform: translateY(0.25em) rotate(0);
+  }
+
+  .anim-menu-btn--state-b .anim-menu-btn__icon--close {
+    background-size: 0% 100%;
+  }
+  .anim-menu-btn--state-b .anim-menu-btn__icon--close::before {
+    transform: translateY(0) rotate(45deg);
+  }
+  .anim-menu-btn--state-b .anim-menu-btn__icon--close::after {
+    transform: translateY(0) rotate(-45deg);
+  }
+
+  .anim-menu-btn__icon--arrow-left,
+  .anim-menu-btn__icon--arrow-right,
+  .anim-menu-btn__icon--arrow-up,
+  .anim-menu-btn__icon--arrow-down {
+    border-radius: 50em;
+    will-change: transform;
+    transition-property: transform;
+    transition-duration: var(--anim-menu-btn-transition-duration, 0.2s);
+  }
+  .anim-menu-btn:active .anim-menu-btn__icon--arrow-left,
+  .anim-menu-btn:active .anim-menu-btn__icon--arrow-right,
+  .anim-menu-btn:active .anim-menu-btn__icon--arrow-up,
+  .anim-menu-btn:active .anim-menu-btn__icon--arrow-down {
+    transform: scale(0.9);
+  }
+  .anim-menu-btn__icon--arrow-left::before,
+  .anim-menu-btn__icon--arrow-left::after,
+  .anim-menu-btn__icon--arrow-right::before,
+  .anim-menu-btn__icon--arrow-right::after,
+  .anim-menu-btn__icon--arrow-up::before,
+  .anim-menu-btn__icon--arrow-up::after,
+  .anim-menu-btn__icon--arrow-down::before,
+  .anim-menu-btn__icon--arrow-down::after {
+    transform-origin: calc(var(--anim-menu-btn-icon-stroke) / 2) 50%;
+    will-change: transform, width;
+    transition-property: transform, width;
+    transition-duration: var(--anim-menu-btn-transition-duration, 0.2s);
+  }
+  .anim-menu-btn__icon--arrow-left::before,
+  .anim-menu-btn__icon--arrow-right::before,
+  .anim-menu-btn__icon--arrow-up::before,
+  .anim-menu-btn__icon--arrow-down::before {
+    transform: translateY(-0.25em) rotate(0);
+  }
+  .anim-menu-btn__icon--arrow-left::after,
+  .anim-menu-btn__icon--arrow-right::after,
+  .anim-menu-btn__icon--arrow-up::after,
+  .anim-menu-btn__icon--arrow-down::after {
+    transform: translateY(0.25em) rotate(0);
+  }
+
+  .anim-menu-btn__icon--arrow-right {
+    transform: rotate(180deg);
+  }
+  .anim-menu-btn:active .anim-menu-btn__icon--arrow-right {
+    transform: rotate(180deg) scale(0.9);
+  }
+
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-left::before,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-left::after,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-right::before,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-right::after,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-up::before,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-up::after,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-down::before,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-down::after {
+    width: 50%;
+  }
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-left::before,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-right::before,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-up::before,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-down::before {
+    transform: translateY(0) rotate(-45deg);
+  }
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-left::after,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-right::after,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-up::after,
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-down::after {
+    transform: translateY(0) rotate(45deg);
+  }
+  .anim-menu-btn--state-b:active .anim-menu-btn__icon--arrow-up {
+    transform: rotate(90deg) scale(0.9);
+  }
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-up {
+    transform: rotate(90deg);
+  }
+  .anim-menu-btn--state-b:active .anim-menu-btn__icon--arrow-down {
+    transform: rotate(-90deg) scale(0.9);
+  }
+  .anim-menu-btn--state-b .anim-menu-btn__icon--arrow-down {
+    transform: rotate(-90deg);
+  }
+
+  /* --------------------------------
+  File#: _2_flexi-header
+  Title: Flexi Header
+  Descr: Customizable header template
+  Usage: codyhouse.co/license
+  -------------------------------- */
+  :root {
+    --f-header-height: 100px;
+    --f-header-logo-width: 100px;
+  }
+  @media (min-width: 64rem) {
+    :root {
+      --f-header-height: 100px;
+    }
+  }
+
+  .f-header {
+    height: var(--f-header-height);
+    width: 100%;
+    @apply z-[3];
+    background-color: var(--bgColor);
+  }
+  .f-header::before {
+    /* used in JS to detect menu style */
+    display: none;
+    content: "mobile";
+  }
+
+  .f-header--expanded {
+    /* class added when navigation is visible - small devices only */
+  }
+
+  .f-header__mobile-content {
+    /* logo + menu button on small devices */
+    position: relative;
+    display: flex;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+    @apply border-b-4;
+    border-color: var(--textColor);
+  }
+
+  .f-header__logo {
+    display: block;
+    width: var(--f-header-logo-width);
+    flex-shrink: 0;
+    text-decoration: none;
+  }
+  .f-header__logo svg,
+  .f-header__logo img {
+    display: block;
+  }
+
+  .f-header__nav-control {
+    /* menu button */
+    --anim-menu-btn-size: 40px;
+    /* 🍔 icon */
+    --anim-menu-btn-icon-size: 28px;
+    --anim-menu-btn-icon-stroke: 2px;
+  }
+
+  .f-header__nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: calc(100vh - var(--f-header-offset, 0px));
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    @apply pt-0 px-0 pb-5 lg:pb-8 border-b-4;
+    border-color: var(--border-color);
+    background-color: var(--bgColor);
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translateY(-1em);
+    transform: translateY(-1em);
+  }
+  .f-header__nav::before {
+    /* top header bg + border */
+    content: "";
+    display: block;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    height: var(--f-header-height);
+    background-color: inherit;
+  }
+
+  .f-header__nav--is-visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      visibility 0s,
+      opacity 0.3s,
+      -webkit-transform 0.3s;
+    transition:
+      visibility 0s,
+      opacity 0.3s,
+      transform 0.3s;
+    transition:
+      visibility 0s,
+      opacity 0.3s,
+      transform 0.3s,
+      -webkit-transform 0.3s;
+  }
+
+  .f-header__nav-logo-wrapper {
+    display: none;
+    /* hide logo nav on small devices */
+  }
+
+  .f-header__item {
+    flex-shrink: 0;
+    @apply border-b;
+    border-color: var(--border-color);
+  }
+
+  .f-header__dropdown-icon {
+    --size: 16px;
+    flex-shrink: 0;
+    margin: 0 10px 0 auto;
+    display: none;
+    /* hide on mobile if link */
+  }
+  .f-header__dropdown-control .f-header__dropdown-icon {
+    display: block;
+  }
+
+  .f-header__link,
+  .f-header__notlink,
+  .f-header__dropdown-control,
+  .f-header__dropdown-link,
+  .f-header__btn,
+  .f-header__form-control {
+    @apply text-lg lg:text-2xl lg:pl-0;
+  }
+
+  .f-header__link,
+  .f-header__notlink,
+  .f-header__dropdown-control,
+  .f-header__dropdown-link {
+    display: flex;
+    align-items: center;
+    color: var(--textColor);
+    text-decoration: none;
+    @apply py-2 lg:py-3 pl-2 lg:px-0;
+  }
+  .f-header__link:hover,
+  .f-header__link[aria-current="page"],
+  .f-header__dropdown-control:hover,
+  .f-header__dropdown-control[aria-current="page"],
+  .f-header__dropdown-link:hover,
+  .f-header__dropdown-link[aria-current="page"] {
+    background-color: var(--accent1Color);
+  }
+
+  .f-header__btn,
+  .f-header__form-control {
+    width: 100%;
+    @apply my-2 lg:my-3 mx-0;
+  }
+
+  .f-header__dropdown-control {
+    width: 100%;
+  }
+
+  .f-header__dropdown {
+    /* sub navigation */
+    @apply pl-5 lg:pl-8;
+  }
+
+  .f-header__dropdown-control + .f-header__dropdown {
+    display: none;
+  }
+  .f-header__dropdown-control[aria-expanded="true"] + .f-header__dropdown {
+    display: block;
+  }
+
+  @media (min-width: 64rem) {
+    .f-header::before {
+      content: "desktop";
+    }
+
+    .f-header__mobile-content {
+      display: none;
+      /* hide logo + menu (mobile content) */
+    }
+
+    .f-header__nav {
+      /* reset */
+      position: static;
+      padding: 0;
+      background-color: transparent;
+      box-shadow: none;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+      transition: none;
+      max-height: none;
+      overflow: visible;
+
+      overscroll-behavior: auto;
+      height: var(--f-header-height);
+    }
+    .f-header__nav::before {
+      /* reset */
+      display: none;
+    }
+
+    .f-header__nav-logo-wrapper {
+      display: flex;
+    }
+
+    .f-header__nav-grid,
+    .f-header__list {
+      display: flex;
+      align-items: center;
+    }
+
+    .f-header__nav-grid {
+      height: 100%;
+    }
+
+    .f-header__item {
+      position: relative;
+      border-bottom: none;
+      @apply mr-2 lg:mr-3;
+      /* margin between nav items */
+    }
+    .f-header__item:last-child {
+      margin-right: 0;
+    }
+
+    .f-header__dropdown-icon {
+      --size: 12px;
+      display: block;
+      @apply mt-0 mr-0 mb-0 ml-0.5 lg:ml-1;
+    }
+
+    .f-header__link,
+    .f-header__notlink,
+    .f-header__dropdown-control,
+    .f-header__dropdown-link,
+    .f-header__btn,
+    .f-header__form-control {
+      font-size: 1.125rem;
+    }
+
+    .f-header__link,
+    .f-header__notlink {
+      @apply py-1 lg:py-1.5 px-1.5 lg:px-2;
+    }
+
+    .f-header__link--icon span {
+      display: none;
+      /* hide icon label */
+    }
+
+    .f-header__btn,
+    .f-header__form-control {
+      margin: 0;
+      /* reset */
+    }
+
+    .f-header__dropdown {
+      position: absolute;
+      top: 100%;
+      width: 220px;
+      left: calc(50% - 110px);
+      @apply py-1 lg:py-1.5 px-0;
+      @apply bg-white;
+      @apply rounded;
+      @apply shadow-lg;
+      @apply z-[5];
+      /* hide */
+      pointer-events: none;
+      visibility: hidden;
+      opacity: 0;
+      transition:
+        visibility 0.2s 0.2s,
+        opacity 0.2s 0s;
+    }
+    .f-header__dropdown-control + .f-header__dropdown {
+      display: block;
+      /* reset style */
+    }
+    .f-header__item:hover .f-header__dropdown,
+    .f-header__dropdown-control[aria-expanded="true"] + .f-header__dropdown {
+      pointer-events: auto;
+      visibility: visible;
+      opacity: 1;
+      transition:
+        visibility 0.2s 0s,
+        opacity 0.2s 0s;
+    }
+
+    .f-header__dropdown-link {
+      @apply text-gray-700;
+      @apply py-2 px-3 lg:px-5;
+      transition: 0.2s;
+    }
+    .f-header__dropdown-link:hover {
+      background-color: var(--accent1Color);
+    }
+  }
+  /* --------------------------------
+  File#: _3_hiding-nav
+  Title: Auto Hiding Navigation
+  Descr: A Navigation container that auto-hides when the user scrolls down, and is revealed when they scrolls back up
+  Usage: codyhouse.co/license
+  -------------------------------- */
+  .hide-nav {
+    --hide-nav-transition-duration: 0.3s;
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0;
+    will-change: transform;
+    transition:
+      background-color var(--hide-nav-transition-duration),
+      -webkit-transform var(--hide-nav-transition-duration);
+    transition:
+      transform var(--hide-nav-transition-duration),
+      background-color var(--hide-nav-transition-duration);
+    transition:
+      transform var(--hide-nav-transition-duration),
+      background-color var(--hide-nav-transition-duration),
+      -webkit-transform var(--hide-nav-transition-duration);
+  }
+
+  .hide-nav--fixed {
+    background-color: transparent;
+  }
+
+  .hide-nav--has-bg {
+    @apply bg-white;
+  }
+</style>
+
+<script>
+  if (!Util) function Util() {}
+
+  Util.hasClass = function (el, className) {
+    return el.classList.contains(className);
+  };
+
+  Util.addClass = function (el, className) {
+    var classList = className.split(" ");
+    el.classList.add(classList[0]);
+    if (classList.length > 1) Util.addClass(el, classList.slice(1).join(" "));
+  };
+
+  Util.removeClass = function (el, className) {
+    var classList = className.split(" ");
+    el.classList.remove(classList[0]);
+    if (classList.length > 1)
+      Util.removeClass(el, classList.slice(1).join(" "));
+  };
+
+  Util.toggleClass = function (el, className, bool) {
+    if (bool) Util.addClass(el, className);
+    else Util.removeClass(el, className);
+  };
+
+  // File#: _1_sub-navigation
+  // Usage: codyhouse.co/license
+  (function () {
+    var SideNav = function (element) {
+      this.element = element;
+      this.control = this.element.getElementsByClassName("js-subnav__control");
+      this.navList = this.element.getElementsByClassName("js-subnav__wrapper");
+      this.closeBtn = this.element.getElementsByClassName(
+        "js-subnav__close-btn"
+      );
+      this.firstFocusable = getFirstFocusable(this);
+      this.showClass = "subnav__wrapper--is-visible";
+      this.collapsedLayoutClass = "subnav--collapsed";
+      initSideNav(this);
+    };
+
+    function getFirstFocusable(sidenav) {
+      // get first focusable element inside the subnav
+      if (sidenav.navList.length == 0) return;
+      var focusableEle = sidenav.navList[0].querySelectorAll(
+          '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary'
+        ),
+        firstFocusable = false;
+      for (var i = 0; i < focusableEle.length; i++) {
+        if (
+          focusableEle[i].offsetWidth ||
+          focusableEle[i].offsetHeight ||
+          focusableEle[i].getClientRects().length
+        ) {
+          firstFocusable = focusableEle[i];
+          break;
+        }
+      }
+
+      return firstFocusable;
+    }
+
+    function initSideNav(sidenav) {
+      checkSideNavLayout(sidenav); // switch from --compressed to --expanded layout
+      initSideNavToggle(sidenav); // mobile behavior + layout update on resize
+    }
+
+    function initSideNavToggle(sidenav) {
+      // custom event emitted when window is resized
+      sidenav.element.addEventListener("update-sidenav", function (event) {
+        checkSideNavLayout(sidenav);
+      });
+
+      // mobile only
+      if (sidenav.control.length == 0 || sidenav.navList.length == 0) return;
+      sidenav.control[0].addEventListener("click", function (event) {
+        // open sidenav
+        openSideNav(sidenav, event);
+      });
+      sidenav.element.addEventListener("click", function (event) {
+        // close sidenav when clicking on close button/bg layer
+        if (
+          event.target.closest(".js-subnav__close-btn") ||
+          Util.hasClass(event.target, "js-subnav__wrapper")
+        ) {
+          closeSideNav(sidenav, event);
+        }
+      });
+    }
+
+    function openSideNav(sidenav, event) {
+      // open side nav - mobile only
+      event.preventDefault();
+      sidenav.selectedTrigger = event.target;
+      event.target.setAttribute("aria-expanded", "true");
+      Util.addClass(sidenav.navList[0], sidenav.showClass);
+      sidenav.navList[0].addEventListener("transitionend", function cb(event) {
+        sidenav.navList[0].removeEventListener("transitionend", cb);
+        sidenav.firstFocusable.focus();
+      });
+    }
+
+    function closeSideNav(sidenav, event, bool) {
+      // close side sidenav - mobile only
+      if (!Util.hasClass(sidenav.navList[0], sidenav.showClass)) return;
+      if (event) event.preventDefault();
+      Util.removeClass(sidenav.navList[0], sidenav.showClass);
+      if (!sidenav.selectedTrigger) return;
+      sidenav.selectedTrigger.setAttribute("aria-expanded", "false");
+      if (!bool) sidenav.selectedTrigger.focus();
+      sidenav.selectedTrigger = false;
+    }
+
+    function checkSideNavLayout(sidenav) {
+      // switch from --compressed to --expanded layout
+      var layout = getComputedStyle(sidenav.element, ":before")
+        .getPropertyValue("content")
+        .replace(/\'|"/g, "");
+      if (layout != "expanded" && layout != "collapsed") return;
+      Util.toggleClass(
+        sidenav.element,
+        sidenav.collapsedLayoutClass,
+        layout != "expanded"
+      );
+    }
+
+    var sideNav = document.getElementsByClassName("js-subnav"),
+      SideNavArray = [],
+      j = 0;
+    if (sideNav.length > 0) {
+      for (var i = 0; i < sideNav.length; i++) {
+        var beforeContent = getComputedStyle(
+          sideNav[i],
+          ":before"
+        ).getPropertyValue("content");
+        if (beforeContent && beforeContent != "" && beforeContent != "none") {
+          j = j + 1;
+        }
+        (function (i) {
+          SideNavArray.push(new SideNav(sideNav[i]));
+        })(i);
+      }
+
+      if (j > 0) {
+        // on resize - update sidenav layout
+        var resizingId = false,
+          customEvent = new CustomEvent("update-sidenav");
+        window.addEventListener("resize", function (event) {
+          clearTimeout(resizingId);
+          resizingId = setTimeout(doneResizing, 300);
+        });
+
+        function doneResizing() {
+          for (var i = 0; i < SideNavArray.length; i++) {
+            (function (i) {
+              SideNavArray[i].element.dispatchEvent(customEvent);
+            })(i);
+          }
+        }
+
+        window.requestAnimationFrame // init table layout
+          ? window.requestAnimationFrame(doneResizing)
+          : doneResizing();
+      }
+
+      // listen for key events
+      window.addEventListener("keyup", function (event) {
+        if (
+          (event.keyCode && event.keyCode == 27) ||
+          (event.key && event.key.toLowerCase() == "escape")
+        ) {
+          // listen for esc key - close navigation on mobile if open
+          for (var i = 0; i < SideNavArray.length; i++) {
+            (function (i) {
+              closeSideNav(SideNavArray[i], event);
+            })(i);
+          }
+        }
+        if (
+          (event.keyCode && event.keyCode == 9) ||
+          (event.key && event.key.toLowerCase() == "tab")
+        ) {
+          // listen for tab key - close navigation on mobile if open when nav loses focus
+          if (document.activeElement.closest(".js-subnav__wrapper")) return;
+          for (var i = 0; i < SideNavArray.length; i++) {
+            (function (i) {
+              closeSideNav(SideNavArray[i], event, true);
+            })(i);
+          }
+        }
+      });
+    }
+  })();
+  // File#: _1_anim-menu-btn
+  // Usage: codyhouse.co/license
+  (function () {
+    var menuBtns = document.getElementsByClassName("js-anim-menu-btn");
+    if (menuBtns.length > 0) {
+      for (var i = 0; i < menuBtns.length; i++) {
+        (function (i) {
+          initMenuBtn(menuBtns[i]);
+        })(i);
+      }
+
+      function initMenuBtn(btn) {
+        btn.addEventListener("click", function (event) {
+          event.preventDefault();
+          var status = !btn.classList.contains("anim-menu-btn--state-b");
+          btn.classList.toggle("anim-menu-btn--state-b", status);
+          // emit custom event
+          var event = new CustomEvent("anim-menu-btn-clicked", {
+            detail: status,
+          });
+          btn.dispatchEvent(event);
+        });
+      }
+    }
+  })();
+  // File#: _2_flexi-header
+  // Usage: codyhouse.co/license
+  (function () {
+    var flexHeader = document.getElementsByClassName("js-f-header");
+    if (flexHeader.length > 0) {
+      var menuTrigger =
+          flexHeader[0].getElementsByClassName("js-anim-menu-btn")[0],
+        firstFocusableElement = getMenuFirstFocusable();
+
+      // we'll use these to store the node that needs to receive focus when the mobile menu is closed
+      var focusMenu = false;
+
+      resetFlexHeaderOffset();
+      setAriaButtons();
+
+      menuTrigger.addEventListener("anim-menu-btn-clicked", function (event) {
+        toggleMenuNavigation(event.detail);
+      });
+
+      // listen for key events
+      window.addEventListener("keyup", function (event) {
+        // listen for esc key
+        if (
+          (event.keyCode && event.keyCode == 27) ||
+          (event.key && event.key.toLowerCase() == "escape")
+        ) {
+          // close navigation on mobile if open
+          if (
+            menuTrigger.getAttribute("aria-expanded") == "true" &&
+            isVisible(menuTrigger)
+          ) {
+            focusMenu = menuTrigger; // move focus to menu trigger when menu is close
+            menuTrigger.click();
+          }
+        }
+        // listen for tab key
+        if (
+          (event.keyCode && event.keyCode == 9) ||
+          (event.key && event.key.toLowerCase() == "tab")
+        ) {
+          // close navigation on mobile if open when nav loses focus
+          if (
+            menuTrigger.getAttribute("aria-expanded") == "true" &&
+            isVisible(menuTrigger) &&
+            !document.activeElement.closest(".js-f-header")
+          )
+            menuTrigger.click();
+        }
+      });
+
+      // detect click on a dropdown control button - expand-on-mobile only
+      flexHeader[0].addEventListener("click", function (event) {
+        var btnLink = event.target.closest(".js-f-header__dropdown-control");
+        if (!btnLink) return;
+        !btnLink.getAttribute("aria-expanded")
+          ? btnLink.setAttribute("aria-expanded", "true")
+          : btnLink.removeAttribute("aria-expanded");
+      });
+
+      // detect mouseout from a dropdown control button - expand-on-mobile only
+      flexHeader[0].addEventListener("mouseout", function (event) {
+        var btnLink = event.target.closest(".js-f-header__dropdown-control");
+        if (!btnLink) return;
+        // check layout type
+        if (getLayout() == "mobile") return;
+        btnLink.removeAttribute("aria-expanded");
+      });
+
+      // close dropdown on focusout - expand-on-mobile only
+      flexHeader[0].addEventListener("focusin", function (event) {
+        var btnLink = event.target.closest(".js-f-header__dropdown-control"),
+          dropdown = event.target.closest(".f-header__dropdown");
+        if (dropdown) return;
+        if (btnLink && btnLink.hasAttribute("aria-expanded")) return;
+        // check layout type
+        if (getLayout() == "mobile") return;
+        var openDropdown = flexHeader[0].querySelector(
+          '.js-f-header__dropdown-control[aria-expanded="true"]'
+        );
+        if (openDropdown) openDropdown.removeAttribute("aria-expanded");
+      });
+
+      // listen for resize
+      var resizingId = false;
+      window.addEventListener("resize", function () {
+        clearTimeout(resizingId);
+        resizingId = setTimeout(doneResizing, 500);
+      });
+
+      function getMenuFirstFocusable() {
+        var focusableEle = flexHeader[0]
+            .getElementsByClassName("f-header__nav")[0]
+            .querySelectorAll(
+              '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary'
+            ),
+          firstFocusable = false;
+        for (var i = 0; i < focusableEle.length; i++) {
+          if (
+            focusableEle[i].offsetWidth ||
+            focusableEle[i].offsetHeight ||
+            focusableEle[i].getClientRects().length
+          ) {
+            firstFocusable = focusableEle[i];
+            break;
+          }
+        }
+
+        return firstFocusable;
+      }
+
+      function isVisible(element) {
+        return (
+          element.offsetWidth ||
+          element.offsetHeight ||
+          element.getClientRects().length
+        );
+      }
+
+      function doneResizing() {
+        if (
+          !isVisible(menuTrigger) &&
+          flexHeader[0].classList.contains("f-header--expanded")
+        ) {
+          menuTrigger.click();
+        }
+        resetFlexHeaderOffset();
+      }
+
+      function toggleMenuNavigation(bool) {
+        // toggle menu visibility on small devices
+        document
+          .getElementsByClassName("f-header__nav")[0]
+          .classList.toggle("f-header__nav--is-visible", bool);
+        flexHeader[0].classList.toggle("f-header--expanded", bool);
+        menuTrigger.setAttribute("aria-expanded", bool);
+        if (bool)
+          firstFocusableElement.focus(); // move focus to first focusable element
+        else if (focusMenu) {
+          focusMenu.focus();
+          focusMenu = false;
+        }
+      }
+
+      function resetFlexHeaderOffset() {
+        // on mobile -> update max height of the flexi header based on its offset value (e.g., if there's a fixed pre-header element)
+        document.documentElement.style.setProperty(
+          "--f-header-offset",
+          flexHeader[0].getBoundingClientRect().top + "px"
+        );
+      }
+
+      function setAriaButtons() {
+        var btnDropdown = flexHeader[0].getElementsByClassName(
+          "js-f-header__dropdown-control"
+        );
+        for (var i = 0; i < btnDropdown.length; i++) {
+          var id = "f-header-dropdown-" + i,
+            dropdown = btnDropdown[i].nextElementSibling;
+          if (dropdown.hasAttribute("id")) {
+            id = dropdown.getAttribute("id");
+          } else {
+            dropdown.setAttribute("id", id);
+          }
+          btnDropdown[i].setAttribute("aria-controls", id);
+        }
+      }
+
+      function getLayout() {
+        return getComputedStyle(flexHeader[0], ":before")
+          .getPropertyValue("content")
+          .replace(/\'|"/g, "");
+      }
+    }
+  })();
+  // File#: _3_hiding-nav
+  // Usage: codyhouse.co/license
+  (function () {
+    var hidingNav = document.getElementsByClassName("js-hide-nav");
+    if (hidingNav.length > 0 && window.requestAnimationFrame) {
+      var mainNav = Array.prototype.filter.call(hidingNav, function (element) {
+          return element.classList.contains("js-hide-nav--main");
+        }),
+        subNav = Array.prototype.filter.call(hidingNav, function (element) {
+          return element.classList.contains("js-hide-nav--sub");
+        });
+
+      var scrolling = false,
+        previousTop = window.scrollY,
+        currentTop = window.scrollY,
+        scrollDelta = 10,
+        scrollOffset = 150, // scrollY needs to be bigger than scrollOffset to hide navigation
+        headerHeight = 0;
+
+      var navIsFixed = false; // check if main navigation is fixed
+      if (
+        mainNav.length > 0 &&
+        mainNav[0].classList.contains("hide-nav--fixed")
+      )
+        navIsFixed = true;
+
+      // store button that triggers navigation on mobile
+      var triggerMobile = getTriggerMobileMenu();
+      var prevElement = createPrevElement();
+      var mainNavTop = 0;
+      // list of classes the hide-nav has when it is expanded -> do not hide if it has those classes
+      var navOpenClasses = hidingNav[0].getAttribute("data-nav-target-class"),
+        navOpenArrayClasses = [];
+      if (navOpenClasses) navOpenArrayClasses = navOpenClasses.split(" ");
+      getMainNavTop();
+      if (mainNavTop > 0) {
+        scrollOffset = scrollOffset + mainNavTop;
+      }
+
+      // init navigation and listen to window scroll event
+      getHeaderHeight();
+      initSecondaryNav();
+      initFixedNav();
+      resetHideNav();
+      window.addEventListener("scroll", function (event) {
+        if (scrolling) return;
+        scrolling = true;
+        window.requestAnimationFrame(resetHideNav);
+      });
+
+      window.addEventListener("resize", function (event) {
+        if (scrolling) return;
+        scrolling = true;
+        window.requestAnimationFrame(function () {
+          if (headerHeight > 0) {
+            getMainNavTop();
+            getHeaderHeight();
+            initSecondaryNav();
+            initFixedNav();
+          }
+          // reset both navigation
+          hideNavScrollUp();
+
+          scrolling = false;
+        });
+      });
+
+      function getHeaderHeight() {
+        headerHeight = mainNav[0].offsetHeight;
+      }
+
+      function initSecondaryNav() {
+        // if there's a secondary nav, set its top equal to the header height
+        if (subNav.length < 1 || mainNav.length < 1) return;
+        subNav[0].style.top = headerHeight - 1 + "px";
+      }
+
+      function initFixedNav() {
+        if (!navIsFixed || mainNav.length < 1) return;
+        mainNav[0].style.marginBottom = "-" + headerHeight + "px";
+      }
+
+      function resetHideNav() {
+        // check if navs need to be hidden/revealed
+        currentTop = window.scrollY;
+        if (
+          currentTop - previousTop > scrollDelta &&
+          currentTop > scrollOffset
+        ) {
+          hideNavScrollDown();
+        } else if (
+          previousTop - currentTop > scrollDelta ||
+          (previousTop - currentTop > 0 && currentTop < scrollOffset)
+        ) {
+          hideNavScrollUp();
+        } else if (
+          previousTop - currentTop > 0 &&
+          subNav.length > 0 &&
+          subNav[0].getBoundingClientRect().top > 0
+        ) {
+          setTranslate(subNav[0], "0%");
+        }
+        // if primary nav is fixed -> toggle bg class
+        if (navIsFixed) {
+          var scrollTop = window.scrollY || window.pageYOffset;
+          mainNav[0].classList.toggle(
+            "hide-nav--has-bg",
+            scrollTop > headerHeight + mainNavTop
+          );
+        }
+        previousTop = currentTop;
+        scrolling = false;
+      }
+
+      function hideNavScrollDown() {
+        // if there's a secondary nav -> it has to reach the top before hiding nav
+        if (
+          subNav.length > 0 &&
+          subNav[0].getBoundingClientRect().top > headerHeight
+        )
+          return;
+        // on mobile -> hide navigation only if dropdown is not open
+        if (
+          triggerMobile &&
+          triggerMobile.getAttribute("aria-expanded") == "true"
+        )
+          return;
+        // check if main nav has one of the following classes
+        if (mainNav.length > 0 && (!navOpenClasses || !checkNavExpanded())) {
+          setTranslate(mainNav[0], "-100%");
+          mainNav[0].addEventListener("transitionend", addOffCanvasClass);
+        }
+        if (subNav.length > 0)
+          setTranslate(subNav[0], "-" + headerHeight + "px");
+      }
+
+      function hideNavScrollUp() {
+        if (mainNav.length > 0) {
+          setTranslate(mainNav[0], "0%");
+          mainNav[0].classList.remove("hide-nav--off-canvas");
+          mainNav[0].removeEventListener("transitionend", addOffCanvasClass);
+        }
+        if (subNav.length > 0) setTranslate(subNav[0], "0%");
+      }
+
+      function addOffCanvasClass() {
+        mainNav[0].removeEventListener("transitionend", addOffCanvasClass);
+        mainNav[0].classList.add("hide-nav--off-canvas");
+      }
+
+      function setTranslate(element, val) {
+        element.style.transform = "translateY(" + val + ")";
+      }
+
+      function getTriggerMobileMenu() {
+        // store trigger that toggle mobile navigation dropdown
+        var triggerMobileClass = hidingNav[0].getAttribute(
+          "data-mobile-trigger"
+        );
+        if (!triggerMobileClass) return false;
+        if (triggerMobileClass.indexOf("#") == 0) {
+          // get trigger by ID
+          var trigger = document.getElementById(
+            triggerMobileClass.replace("#", "")
+          );
+          if (trigger) return trigger;
+        } else {
+          // get trigger by class name
+          var trigger = hidingNav[0].getElementsByClassName(triggerMobileClass);
+          if (trigger.length > 0) return trigger[0];
+        }
+
+        return false;
+      }
+
+      function createPrevElement() {
+        // create element to be inserted right before the mainNav to get its top value
+        if (mainNav.length < 1) return false;
+        var newElement = document.createElement("div");
+        newElement.setAttribute("aria-hidden", "true");
+        mainNav[0].parentElement.insertBefore(newElement, mainNav[0]);
+        var prevElement = mainNav[0].previousElementSibling;
+        prevElement.style.opacity = "0";
+        return prevElement;
+      }
+
+      function getMainNavTop() {
+        if (!prevElement) return;
+        mainNavTop = prevElement.getBoundingClientRect().top + window.scrollY;
+      }
+
+      function checkNavExpanded() {
+        var navIsOpen = false;
+        for (var i = 0; i < navOpenArrayClasses.length; i++) {
+          if (mainNav[0].classList.contains(navOpenArrayClasses[i].trim())) {
+            navIsOpen = true;
+            break;
+          }
+        }
+        return navIsOpen;
+      }
+    } else {
+      // if window requestAnimationFrame is not supported -> add bg class to fixed header
+      var mainNav = document.getElementsByClassName("js-hide-nav--main");
+      if (mainNav.length < 1) return;
+      if (mainNav[0].classList.contains("hide-nav--fixed"))
+        mainNav[0].classList.add("hide-nav--has-bg");
+    }
+  })();
+</script>
