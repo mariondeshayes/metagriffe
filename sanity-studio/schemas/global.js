@@ -40,6 +40,13 @@ export default {
       title: 'Couleur accentuation 2',
     },
     {
+      type: 'text',
+      name: 'font',
+      group: 'theme',
+      title: 'Typographie',
+      description: 'copier ici le CSS de fontsource.org',
+    },
+    {
       name: 'titleExtension',
       title: 'À ajouter à la fin de la balise "title"',
       type: 'string',
