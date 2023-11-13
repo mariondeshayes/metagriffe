@@ -13,10 +13,6 @@ QUERY = encodeURIComponent(`
     }
   },
   'logo': logo.asset->url,
-  "accent1Color": accent1Color.hex,
-  "textColor":textColor.hex,
-  "bgColor":bgColor.hex,
-  "accent2Color":accent2Color.hex
 }`);
 // Compose the URL for your project's endpoint and add the query
 // ⚠️ Don't forget to change PROJECT_ID & DATASET from .env
@@ -33,11 +29,6 @@ let data = await fetch(URLQUERY)
     return result[0];
   })
   .catch((err) => console.error(err));
-
-let bgColor = data.bgColor;
-let textColor = data.textColor;
-let accent1Color = data.accent1Color;
-let accent2Color = data.accent2Color;
 ---
 
 <header
@@ -143,7 +134,7 @@ let accent2Color = data.accent2Color;
   </div>
 </header>
 
-<style define:vars={{ bgColor, textColor, accent1Color, accent2Color }}>
+<style>
   /* --------------------------------
   File#: _1_anim-menu-btn
   Title: Animated Menu Button
@@ -320,7 +311,7 @@ let accent2Color = data.accent2Color;
   .f-header {
     height: var(--f-header-height);
     width: 100%;
-    @apply z-[3];
+    @apply z-50;
     background-color: var(--bgColor);
   }
   .f-header::before {
@@ -421,6 +412,7 @@ let accent2Color = data.accent2Color;
     flex-shrink: 0;
     @apply border-b;
     border-color: var(--border-color);
+    text-transform: uppercase;
   }
 
   .f-header__dropdown-icon {
