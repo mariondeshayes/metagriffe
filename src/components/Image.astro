@@ -1,0 +1,43 @@
+---
+import probe from "probe-image-size";
+
+const {
+  src,
+  alt,
+  sizes = "100vw",
+  class: classList,
+  loading = "lazy",
+} = Astro.props;
+
+let srcUrl = new URL(src);
+let imgID = srcUrl.pathname.split("/")[4];
+
+const imgixDomain = import.meta.env.IMGIX_DOMAIN;
+let newUrl = new URL(imgID, imgixDomain);
+newUrl.searchParams.set("auto", "format, compress");
+
+let urlw = new URL(newUrl);
+urlw.searchParams.set("fit", "max");
+urlw.searchParams.set("w", "300");
+let url300 = urlw.href;
+urlw.searchParams.set("w", "600");
+let url600 = urlw.href;
+urlw.searchParams.set("w", "1400");
+let url1400 = urlw.href;
+
+let width, height;
+let meta = await probe(src);
+width = meta.width;
+height = meta.height;
+---
+
+<img
+  srcset=`${url300} 300w, ${url600} 600w, ${url1400} 1400w`
+  sizes={sizes}
+  src={newUrl.href}
+  alt={alt}
+  class={classList}
+  width={width}
+  height={height}
+  loading={loading}
+/>
