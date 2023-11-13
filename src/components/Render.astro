@@ -1,0 +1,21 @@
+---
+import { PortableText } from "astro-portabletext";
+import Hero from "./Hero.astro";
+import Valeurs from "../components/Valeurs.astro";
+
+const { data, context } = Astro.props;
+let value;
+if (data) {
+  value = data.map((e) => ({ ...e, ...context }));
+}
+---
+
+<PortableText
+  value={value}
+  components={{
+    type: {
+      hero: Hero,
+      valeurs: Valeurs,
+    },
+  }}
+/>
