@@ -1,8 +1,13 @@
 ---
-import "../styles/global.css";
+import "../styles/global.scss";
+import Fonts from "../styles/fonts.astro";
+import Colors from "../styles/colors.astro";
+
+import Render from "../components/Render.astro";
 
 import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 export async function getStaticPaths() {
   let QUERY, URL;
@@ -10,8 +15,13 @@ export async function getStaticPaths() {
   //FETCH PAGE, CAT CONTENT
   QUERY = encodeURIComponent(
     `*[_type == "page"]{
-    "seo": {title,description,slug,robots,canonical,schema,"ogimage": ogimage.asset->url},
+    "seo": {title,description,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
     content[]{
+      _type == "hero" => {_type,h1,p,btn,img{alt,'src':asset->url}},
+      _type == "valeurs" => {_type,h2,valeurs},
+      _type == "services" => {_type,h2,services[]{h3,text,img{alt,'src':asset->url},"href":href->slug,ancre}},
+      _type == "feature" => {_type,h2,img{alt,'src':asset->url},h3,text,"href":href->slug,ancre},
+      _type == "cta" => {_type,h2,text,btn},
       _type == "block" => {...},
     }
   }`
@@ -56,9 +66,11 @@ const { seo, content } = Astro.props;
 <!doctype html>
 <html lang="fr" prefix="og: http://ogp.me/ns#">
   <Head seo={seo} />
+  <Fonts />
+  <Colors />
   <body>
     <Header />
-    <!-- <Render data="{content}" context="{context}" />
-    <Footer /> -->
+    <Render data={content} />
+    <Footer />
   </body>
 </html>

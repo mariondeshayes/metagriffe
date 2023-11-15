@@ -2,6 +2,9 @@
 import { PortableText } from "astro-portabletext";
 import Hero from "./Hero.astro";
 import Valeurs from "../components/Valeurs.astro";
+import Services from "../components/Services.astro";
+import Feature from "../components/Feature.astro";
+import Cta from "../components/Cta.astro";
 
 const { data, context } = Astro.props;
 let value;
@@ -16,6 +19,9 @@ if (data) {
     type: {
       hero: Hero,
       valeurs: Valeurs,
+      services: Services,
+      feature: Feature,
+      cta: Cta,
     },
   }}
 />
