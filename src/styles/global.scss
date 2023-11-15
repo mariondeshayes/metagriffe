@@ -5,8 +5,8 @@ body {
 
 .btn {
   @apply text-lg md:text-2xl whitespace-nowrap;
-  background-color: var(--textColor);
-  color: var(--bgColor);
+  background-color: var(--accent1Color);
+  color: var(--textColor);
   padding-block: 0.4rem;
   padding-inline: 0.7rem;
   border: 1px solid var(--bgColor);
@@ -28,4 +28,8 @@ body {
 .list-border > * {
   border-top: 2px solid var(--textColor);
   @apply pt-4 md:pt-8;
+}
+
+p + p {
+  margin-block-start: 1rem;
 }
