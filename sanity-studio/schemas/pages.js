@@ -86,7 +86,14 @@ export default {
       name: 'content',
       type: 'array',
       title: 'Contenu',
-      of: [{type: 'block'}, {type: 'hero'}, {type: 'valeurs'}],
+      of: [
+        {type: 'block'},
+        {type: 'hero'},
+        {type: 'valeurs'},
+        {type: 'services'},
+        {type: 'feature'},
+        {type: 'cta'},
+      ],
     },
   ],
 }
