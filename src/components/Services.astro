@@ -1,0 +1,57 @@
+---
+import { PortableText } from "astro-portabletext";
+import Image from "./Image.astro";
+const { node } = Astro.props;
+---
+
+<section class="my-32">
+  <hr class="small-separator mb-8" />
+  <h2
+    class="mx-4 text-3xl sm:text-4xl md:text-6xl xl:text-7xl font-extrabold uppercase mb-4 bg-[var(--accent1Color)]"
+    set:html={node.h2}
+  />
+
+  <div class="switcher justify-center mx-4 md:mx-auto mt-16">
+    {
+      node.services.map((service) => (
+        <a
+          href={`/${service.href}`}
+          class="md:max-w-xs border-2 border-[var(--textColor)] p-2 flex flex-col justify-between">
+          <div>
+            <Image
+              src={service.img.src}
+              alt={service.img.alt}
+              class="w-full h-64 object-cover"
+            />
+            <h3
+              class="text-xl uppercase font-extrabold my-4"
+              set:html={service.h3}
+            />
+            <div>
+              <PortableText value={service.text} />
+            </div>
+          </div>
+          <p class="my-4 btn">{service.ancre}</p>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .switcher > * {
+    flex-grow: 1;
+    flex-basis: calc((900px - 100%) * 999);
+  }
+
+  .switcher > :nth-last-child(n + 5),
+  .switcher > :nth-last-child(n + 5) ~ * {
+    flex-basis: 100%;
+  }
+</style>
