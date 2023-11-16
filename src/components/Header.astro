@@ -1,4 +1,6 @@
 ---
+const currentPath = Astro.url.pathname;
+
 let QUERY, URLQUERY;
 
 //FETCH MENU ORGANISATION AND LOGO FROM GLOBAL
@@ -44,7 +46,8 @@ let data = await fetch(URLQUERY)
       aria-label="Ouvrir/Fermer le menu">
       <i
         class="anim-menu-btn__icon anim-menu-btn__icon--close"
-        aria-hidden="true"></i>
+        aria-hidden="true">
+      </i>
     </button>
   </div>
 
@@ -64,7 +67,13 @@ let data = await fetch(URLQUERY)
               if (el.subpages) {
                 return (
                   <li class="f-header__item">
-                    <a href={`/${el.url}`} class="f-header__link">
+                    <a
+                      href={`/${el.url}`}
+                      class={
+                        currentPath == `/${el.url}`
+                          ? "f-header__link active"
+                          : "f-header__link"
+                      }>
                       <span>{el.nom}</span>
                       <svg
                         class="f-header__dropdown-icon icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
@@ -78,7 +87,11 @@ let data = await fetch(URLQUERY)
                         <li>
                           <a
                             href={`/${item.url}`}
-                            class="f-header__dropdown-link">
+                            class={
+                              currentPath == `/${item.url}`
+                                ? "f-header__dropdown-link active"
+                                : "f-header__dropdown-link"
+                            }>
                             {item.nom}
                           </a>
                         </li>
@@ -89,7 +102,13 @@ let data = await fetch(URLQUERY)
               } else {
                 return (
                   <li class="f-header__item">
-                    <a href={`/${el.url}`} class="f-header__link">
+                    <a
+                      href={`/${el.url}`}
+                      class={
+                        currentPath == `/${el.url}`
+                          ? "f-header__link active"
+                          : "f-header__link"
+                      }>
                       {el.nom}
                     </a>
                   </li>
@@ -113,7 +132,11 @@ let data = await fetch(URLQUERY)
                         <li>
                           <a
                             href={`/${item.url}`}
-                            class="f-header__dropdown-link">
+                            class={
+                              currentPath == `/${item.url}`
+                                ? "f-header__dropdown-link active"
+                                : "f-header__dropdown-link"
+                            }>
                             {item.nom}
                           </a>
                         </li>
@@ -299,13 +322,17 @@ let data = await fetch(URLQUERY)
   Usage: codyhouse.co/license
   -------------------------------- */
   :root {
-    --f-header-height: 100px;
+    --f-header-height: 60px;
     --f-header-logo-width: 100px;
   }
   @media (min-width: 64rem) {
     :root {
-      --f-header-height: 100px;
+      --f-header-height: 60px;
     }
+  }
+
+  .active {
+    @apply underline decoration-2 decoration-[var(--textColor)] underline-offset-4 !important;
   }
 
   .f-header {
@@ -432,7 +459,7 @@ let data = await fetch(URLQUERY)
   .f-header__dropdown-link,
   .f-header__btn,
   .f-header__form-control {
-    @apply text-lg lg:text-2xl lg:pl-0;
+    @apply text-lg lg:text-2xl lg:pl-0 font-extrabold;
   }
 
   .f-header__link,
@@ -568,9 +595,9 @@ let data = await fetch(URLQUERY)
       width: 220px;
       left: calc(50% - 110px);
       @apply py-1 lg:py-1.5 px-0;
-      @apply bg-white;
+      @apply bg-[var(--bgColor)];
       @apply rounded;
-      @apply shadow-lg;
+      @apply shadow-lg border-4 border-[var(--textColor)];
       @apply z-[5];
       /* hide */
       pointer-events: none;
@@ -669,7 +696,7 @@ let data = await fetch(URLQUERY)
       this.control = this.element.getElementsByClassName("js-subnav__control");
       this.navList = this.element.getElementsByClassName("js-subnav__wrapper");
       this.closeBtn = this.element.getElementsByClassName(
-        "js-subnav__close-btn"
+        "js-subnav__close-btn",
       );
       this.firstFocusable = getFirstFocusable(this);
       this.showClass = "subnav__wrapper--is-visible";
@@ -681,7 +708,7 @@ let data = await fetch(URLQUERY)
       // get first focusable element inside the subnav
       if (sidenav.navList.length == 0) return;
       var focusableEle = sidenav.navList[0].querySelectorAll(
-          '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary'
+          '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary',
         ),
         firstFocusable = false;
       for (var i = 0; i < focusableEle.length; i++) {
@@ -758,7 +785,7 @@ let data = await fetch(URLQUERY)
       Util.toggleClass(
         sidenav.element,
         sidenav.collapsedLayoutClass,
-        layout != "expanded"
+        layout != "expanded",
       );
     }
 
@@ -769,7 +796,7 @@ let data = await fetch(URLQUERY)
       for (var i = 0; i < sideNav.length; i++) {
         var beforeContent = getComputedStyle(
           sideNav[i],
-          ":before"
+          ":before",
         ).getPropertyValue("content");
         if (beforeContent && beforeContent != "" && beforeContent != "none") {
           j = j + 1;
@@ -931,7 +958,7 @@ let data = await fetch(URLQUERY)
         // check layout type
         if (getLayout() == "mobile") return;
         var openDropdown = flexHeader[0].querySelector(
-          '.js-f-header__dropdown-control[aria-expanded="true"]'
+          '.js-f-header__dropdown-control[aria-expanded="true"]',
         );
         if (openDropdown) openDropdown.removeAttribute("aria-expanded");
       });
@@ -947,7 +974,7 @@ let data = await fetch(URLQUERY)
         var focusableEle = flexHeader[0]
             .getElementsByClassName("f-header__nav")[0]
             .querySelectorAll(
-              '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary'
+              '[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex]:not([tabindex="-1"]), [contenteditable], audio[controls], video[controls], summary',
             ),
           firstFocusable = false;
         for (var i = 0; i < focusableEle.length; i++) {
@@ -1001,13 +1028,13 @@ let data = await fetch(URLQUERY)
         // on mobile -> update max height of the flexi header based on its offset value (e.g., if there's a fixed pre-header element)
         document.documentElement.style.setProperty(
           "--f-header-offset",
-          flexHeader[0].getBoundingClientRect().top + "px"
+          flexHeader[0].getBoundingClientRect().top + "px",
         );
       }
 
       function setAriaButtons() {
         var btnDropdown = flexHeader[0].getElementsByClassName(
-          "js-f-header__dropdown-control"
+          "js-f-header__dropdown-control",
         );
         for (var i = 0; i < btnDropdown.length; i++) {
           var id = "f-header-dropdown-" + i,
@@ -1135,7 +1162,7 @@ let data = await fetch(URLQUERY)
           var scrollTop = window.scrollY || window.pageYOffset;
           mainNav[0].classList.toggle(
             "hide-nav--has-bg",
-            scrollTop > headerHeight + mainNavTop
+            scrollTop > headerHeight + mainNavTop,
           );
         }
         previousTop = currentTop;
@@ -1185,13 +1212,13 @@ let data = await fetch(URLQUERY)
       function getTriggerMobileMenu() {
         // store trigger that toggle mobile navigation dropdown
         var triggerMobileClass = hidingNav[0].getAttribute(
-          "data-mobile-trigger"
+          "data-mobile-trigger",
         );
         if (!triggerMobileClass) return false;
         if (triggerMobileClass.indexOf("#") == 0) {
           // get trigger by ID
           var trigger = document.getElementById(
-            triggerMobileClass.replace("#", "")
+            triggerMobileClass.replace("#", ""),
           );
           if (trigger) return trigger;
         } else {
