@@ -6,8 +6,27 @@ export default {
     {name: 'seo', title: 'SEO'},
     {name: 'menu', title: 'Menu'},
     {name: 'theme', title: 'Thème'},
+    {name: 'social', title: 'Réseaux Sociaux'},
   ],
   fields: [
+    {
+      name: 'networks',
+      type: 'array',
+      title: 'Réseaux sociaux',
+      group: 'social',
+      of: [
+        {
+          name: 'network',
+          type: 'object',
+          title: 'Réseau social',
+          fields: [
+            {name: 'nom', type: 'string', title: 'Nom du réseau social'},
+            {name: 'url', type: 'string', title: 'URL du lien'},
+            {name: 'svg', type: 'image', title: 'Icone'},
+          ],
+        },
+      ],
+    },
     {
       name: 'logo',
       title: 'Logo',
@@ -63,6 +82,13 @@ export default {
       title: 'Couleur utilisée dans la thématisation des navigateurs',
       type: 'color',
       group: 'seo',
+    },
+    {
+      name: 'legalUrl',
+      type: 'reference',
+      title: 'Choix de la page Mentions légales',
+      to: [{type: 'page'}],
+      group: 'menu',
     },
     {
       name: 'links',
