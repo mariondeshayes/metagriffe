@@ -5,6 +5,8 @@ import Valeurs from "../components/Valeurs.astro";
 import Services from "../components/Services.astro";
 import Feature from "../components/Feature.astro";
 import Cta from "../components/Cta.astro";
+import Title from "../components/Title.astro";
+import FAQ from "./FAQ.astro";
 
 const { data, context } = Astro.props;
 let value;
@@ -22,6 +24,8 @@ if (data) {
       services: Services,
       feature: Feature,
       cta: Cta,
+      title: Title,
+      faq: FAQ,
     },
   }}
 />
