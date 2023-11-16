@@ -21,6 +21,7 @@ export default {
       name: 'valeurs',
       title: 'Liste de valeurs',
       type: 'array',
+      validation: (Rule) => Rule.min(1).warning('Au moins 1 valeur nécessaire pour ce composant'),
       of: [
         {
           name: 'valeur',

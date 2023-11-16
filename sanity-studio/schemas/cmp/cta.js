@@ -16,7 +16,12 @@ export default {
     },
   },
   fields: [
-    {name: 'h2', title: 'H2', type: 'string'},
+    {
+      name: 'h2',
+      title: 'H2',
+      type: 'string',
+      validation: (Rule) => Rule.required().warning('Le h2 est obligatoire'),
+    },
     {
       name: 'text',
       title: 'Description',
@@ -31,6 +36,7 @@ export default {
         {name: 'href', title: 'URL', type: 'string'},
         {name: 'ancre', title: 'Texte', type: 'string'},
       ],
+      validation: (Rule) => Rule.required().warning('Le bouton est obligatoire'),
     },
   ],
 }

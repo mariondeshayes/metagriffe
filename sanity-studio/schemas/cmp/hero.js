@@ -16,7 +16,12 @@ export default {
     },
   },
   fields: [
-    {name: 'h1', title: 'H1', type: 'string'},
+    {
+      name: 'h1',
+      title: 'H1',
+      type: 'string',
+      validation: (Rule) => Rule.required().warning('Le H1 est obligatoire'),
+    },
     {
       name: 'p',
       title: 'Texte',
@@ -28,6 +33,7 @@ export default {
       title: 'Image',
       type: 'image',
       fields: [{name: 'alt', title: 'Texte alternatif', type: 'string'}],
+      validation: (Rule) => Rule.required().warning("L'image est obligatoire"),
     },
     {
       name: 'btn',

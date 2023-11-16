@@ -21,6 +21,8 @@ export default {
       name: 'services',
       title: 'Liste de services',
       type: 'array',
+      validation: (Rule) =>
+        Rule.min(2).warning('Au moins 2 services nécessaires pour ce composant'),
       of: [
         {
           name: 'service',

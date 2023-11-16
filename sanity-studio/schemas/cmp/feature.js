@@ -22,6 +22,7 @@ export default {
       title: 'Image',
       type: 'image',
       fields: [{name: 'alt', title: 'Texte alternatif', type: 'string'}],
+      validation: (Rule) => Rule.required().warning("L'image est obligatoire"),
     },
     {
       name: 'h3',
