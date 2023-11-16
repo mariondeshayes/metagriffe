@@ -11,6 +11,8 @@ body {
   padding-inline: 0.7rem;
   border: 1px solid var(--bgColor);
   transition: all 0.3s;
+  display: block;
+  width: fit-content;
   &:hover {
     background-color: var(--bgColor);
     color: var(--textColor);
@@ -25,11 +27,27 @@ body {
   background-color: var(--textColor);
 }
 
-.list-border > * {
+.list-border > * + * {
   border-top: 2px solid var(--textColor);
   @apply pt-4 md:pt-8;
 }
 
 p + p {
   margin-block-start: 1rem;
+}
+
+// section+section{
+//   margin-block-start: 2rem;
+// }
+
+section.feature:nth-child(odd){
+  & .feature-content{
+    @apply flex-col md:flex-row-reverse;
+  }
+}
+
+section.feature:nth-child(even){
+  & .feature-content{
+    @apply flex-col md:flex-row;
+  }
 }
