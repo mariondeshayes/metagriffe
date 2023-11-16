@@ -1,0 +1,393 @@
+---
+import { PortableText } from "astro-portabletext";
+const { node } = Astro.props;
+---
+
+<section class="pb-16">
+  <div class="mb-8 lg:mb-12">
+    {
+      node.h2 && (
+        <h2
+          class="mt-16 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase w-fit mx-4 md:mr-auto md:ml-4 border-t-4 border-[var(--textColor)] pt-2"
+          set:html={node.h2}
+        />
+      )
+    }
+  </div>
+
+  <ul
+    class="accordion max-w-prose mx-auto js-accordion"
+    data-animation="on"
+    data-multi-items="on">
+    {
+      node.questions.map((el) => (
+        <li class="accordion__item js-accordion__item">
+          <button
+            class="accordion__header py-3 lg:py-5 px-5 lg:px-8 js-tab-focus"
+            type="button">
+            <span class="text-lg lg:text-2xl" set:html={el.question} />
+
+            <svg
+              class="icon h-[20px] w-[20px] inline-block text-inherit fill-current leading-none shrink-0 accordion__icon-plus no-js:is-hidden"
+              viewBox="0 0 20 20"
+              aria-hidden="true">
+              <g
+                class="icon__group"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+                <line x1="2" y1="10" x2="18" y2="10" />
+                <line x1="10" y1="18" x2="10" y2="2" />
+              </g>
+            </svg>
+          </button>
+
+          <div class="accordion__panel pt-1.5 lg:pt-2 px-5 lg:px-8 pb-5 lg:pb-8 js-accordion__panel">
+            <div>
+              <PortableText value={el.answer} />
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <style>
+    /* --------------------------------
+
+File#: _1_accordion
+Title: Accordion
+Descr: Create stacked sections of content and allow the user to expand/collapse them
+Usage: codyhouse.co/license
+
+-------------------------------- */
+    :root {
+      /* general */
+      --accordion-border-width: 0px;
+      /* icon */
+      --accordion-icon-size: 20px;
+      --accordion-icon-stroke-width: 2px;
+    }
+
+    .accordion__item {
+      border-style: solid;
+      @apply border-t-2 border-[var(--textColor)];
+    }
+
+    .accordion__header {
+      /* button */
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      cursor: pointer;
+      @apply gap-4 md:gap-8;
+    }
+    .accordion__header .icon .icon__group {
+      stroke-width: var(--accordion-icon-stroke-width);
+    }
+
+    .accordion__icon-arrow .icon__group,
+    .accordion__icon-arrow-v2 .icon__group,
+    .accordion__icon-plus .icon__group {
+      will-change: transform;
+      transform-origin: 50% 50%;
+    }
+
+    .accordion__icon-arrow .icon__group > * {
+      transform-origin: 10px 14px;
+    }
+
+    .accordion__icon-arrow-v2 .icon__group > * {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 20;
+      transform: translateY(4px);
+    }
+    .accordion__icon-arrow-v2 .icon__group > *:first-child {
+      stroke-dashoffset: 10.15;
+    }
+    .accordion__icon-arrow-v2 .icon__group > *:last-child {
+      stroke-dashoffset: 10.15;
+    }
+
+    .accordion__icon-plus .icon__group {
+      transform: rotate(0deg);
+    }
+    .accordion__icon-plus .icon__group > * {
+      transform-origin: 50% 50%;
+    }
+    .accordion__icon-plus .icon__group > *:first-child {
+      transform: rotate(0deg);
+    }
+
+    .accordion__item--is-open
+      > .accordion__header
+      > .accordion__icon-arrow
+      .icon__group {
+      /* animated arrow icon */
+    }
+    .accordion__item--is-open
+      > .accordion__header
+      > .accordion__icon-arrow
+      .icon__group
+      > *:first-child {
+      transform: translateY(-8px) rotate(-90deg);
+    }
+    .accordion__item--is-open
+      > .accordion__header
+      > .accordion__icon-arrow
+      .icon__group
+      > *:last-child {
+      transform: translateY(-8px) rotate(90deg);
+    }
+    .accordion__item--is-open
+      > .accordion__header
+      > .accordion__icon-arrow-v2
+      .icon__group {
+      /* animated arrow icon v2 */
+      transform: rotate(-90deg);
+    }
+    .accordion__item--is-open
+      > .accordion__header
+      > .accordion__icon-arrow-v2
+      .icon__group
+      > *:first-child,
+    .accordion__item--is-open
+      > .accordion__header
+      > .accordion__icon-arrow-v2
+      .icon__group
+      *:last-child {
+      stroke-dashoffset: 0;
+      transform: translateY(0px);
+    }
+    .accordion__item--is-open
+      > .accordion__header
+      > .accordion__icon-plus
+      .icon__group {
+      /* animated plus icon */
+      transform: rotate(-90deg);
+    }
+    .accordion__item--is-open
+      > .accordion__header
+      > .accordion__icon-plus
+      .icon__group
+      > *:first-child {
+      transform: rotate(-90deg);
+    }
+
+    .accordion__panel {
+      display: none;
+      will-change: height;
+      transform: translateZ(0px);
+      @apply mt-4;
+    }
+    .accordion__item--is-open > .accordion__panel {
+      display: block;
+    }
+
+    /* animations */
+    .accordion[data-animation="on"]
+      .accordion__item--is-open
+      .accordion__panel
+      > * {
+      animation: accordion-entry-animation 0.4s
+        cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    .accordion[data-animation="on"] .accordion__icon-arrow .icon__group,
+    .accordion[data-animation="on"] .accordion__icon-arrow-v2 .icon__group,
+    .accordion[data-animation="on"] .accordion__icon-plus .icon__group {
+      transition: transform 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    .accordion[data-animation="on"] .accordion__icon-arrow .icon__group > *,
+    .accordion[data-animation="on"] .accordion__icon-arrow-v2 .icon__group > *,
+    .accordion[data-animation="on"] .accordion__icon-plus .icon__group > * {
+      transition:
+        transform 0.3s,
+        stroke-dashoffset 0.3s;
+    }
+
+    @keyframes accordion-entry-animation {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
+  </style>
+
+  <script>
+    // File#: _1_accordion
+    // Usage: codyhouse.co/license
+    (function () {
+      var Accordion = function (element) {
+        this.element = element;
+        this.items = getChildrenByClassName(this.element, "js-accordion__item");
+        this.version = this.element.getAttribute("data-version")
+          ? "-" + this.element.getAttribute("data-version")
+          : "";
+        this.showClass = "accordion" + this.version + "__item--is-open";
+        this.animateHeight =
+          this.element.getAttribute("data-animation") == "on";
+        this.multiItems = !(
+          this.element.getAttribute("data-multi-items") == "off"
+        );
+        // deep linking options
+        this.deepLinkOn = this.element.getAttribute("data-deep-link") == "on";
+        // init accordion
+        this.initAccordion();
+      };
+
+      Accordion.prototype.initAccordion = function () {
+        //set initial aria attributes
+        for (var i = 0; i < this.items.length; i++) {
+          var button = this.items[i].getElementsByTagName("button")[0],
+            content = this.items[i].getElementsByClassName(
+              "js-accordion__panel",
+            )[0],
+            isOpen = this.items[i].classList.contains(this.showClass)
+              ? "true"
+              : "false";
+          button.setAttribute("aria-expanded", isOpen);
+          button.setAttribute("aria-controls", "accordion-content-" + i);
+          button.setAttribute("id", "accordion-header-" + i);
+          button.classList.add("js-accordion__trigger");
+          content.setAttribute("aria-labelledby", "accordion-header-" + i);
+          content.setAttribute("id", "accordion-content-" + i);
+        }
+
+        //listen for Accordion events
+        this.initAccordionEvents();
+
+        // check deep linking option
+        this.initDeepLink();
+      };
+
+      Accordion.prototype.initAccordionEvents = function () {
+        var self = this;
+
+        this.element.addEventListener("click", function (event) {
+          var trigger = event.target.closest(".js-accordion__trigger");
+          //check index to make sure the click didn't happen inside a children accordion
+          if (
+            trigger &&
+            Array.prototype.indexOf.call(self.items, trigger.parentElement) >= 0
+          )
+            self.triggerAccordion(trigger);
+        });
+      };
+
+      Accordion.prototype.triggerAccordion = function (trigger) {
+        var bool = trigger.getAttribute("aria-expanded") === "true";
+
+        this.animateAccordion(trigger, bool, false);
+
+        if (!bool && this.deepLinkOn) {
+          history.replaceState(
+            null,
+            "",
+            "#" + trigger.getAttribute("aria-controls"),
+          );
+        }
+      };
+
+      Accordion.prototype.animateAccordion = function (
+        trigger,
+        bool,
+        deepLink,
+      ) {
+        var self = this;
+        var item = trigger.closest(".js-accordion__item"),
+          content = item.getElementsByClassName("js-accordion__panel")[0],
+          ariaValue = bool ? "false" : "true";
+
+        if (!bool) item.classList.add(this.showClass);
+        trigger.setAttribute("aria-expanded", ariaValue);
+        self.resetContentVisibility(item, content, bool);
+
+        if ((!this.multiItems && !bool) || deepLink) this.closeSiblings(item);
+      };
+
+      Accordion.prototype.resetContentVisibility = function (
+        item,
+        content,
+        bool,
+      ) {
+        item.classList.toggle(this.showClass, !bool);
+        content.removeAttribute("style");
+        if (bool && !this.multiItems) {
+          // accordion item has been closed -> check if there's one open to move inside viewport
+          this.moveContent();
+        }
+      };
+
+      Accordion.prototype.closeSiblings = function (item) {
+        //if only one accordion can be open -> search if there's another one open
+        var index = Array.prototype.indexOf.call(this.items, item);
+        for (var i = 0; i < this.items.length; i++) {
+          if (this.items[i].classList.contains(this.showClass) && i != index) {
+            this.animateAccordion(
+              this.items[i].getElementsByClassName("js-accordion__trigger")[0],
+              true,
+              false,
+            );
+            return false;
+          }
+        }
+      };
+
+      Accordion.prototype.moveContent = function () {
+        // make sure title of the accordion just opened is inside the viewport
+        var openAccordion = this.element.getElementsByClassName(this.showClass);
+        if (openAccordion.length == 0) return;
+        var boundingRect = openAccordion[0].getBoundingClientRect();
+        if (boundingRect.top < 0 || boundingRect.top > window.innerHeight) {
+          var windowScrollTop =
+            window.scrollY || document.documentElement.scrollTop;
+          window.scrollTo(0, boundingRect.top + windowScrollTop);
+        }
+      };
+
+      Accordion.prototype.initDeepLink = function () {
+        if (!this.deepLinkOn) return;
+        var hash = window.location.hash.substr(1);
+        if (!hash || hash == "") return;
+        var trigger = this.element.querySelector(
+          '.js-accordion__trigger[aria-controls="' + hash + '"]',
+        );
+        if (trigger && trigger.getAttribute("aria-expanded") !== "true") {
+          this.animateAccordion(trigger, false, true);
+          setTimeout(function () {
+            trigger.scrollIntoView(true);
+          });
+        }
+      };
+
+      function getChildrenByClassName(el, className) {
+        var children = el.children,
+          childrenByClass = [];
+        for (var i = 0; i < children.length; i++) {
+          if (children[i].classList.contains(className))
+            childrenByClass.push(children[i]);
+        }
+        return childrenByClass;
+      }
+
+      window.Accordion = Accordion;
+
+      //initialize the Accordion objects
+      var accordions = document.getElementsByClassName("js-accordion");
+      if (accordions.length > 0) {
+        for (var i = 0; i < accordions.length; i++) {
+          (function (i) {
+            new Accordion(accordions[i]);
+          })(i);
+        }
+      }
+    })();
+  </script>
+</section>
