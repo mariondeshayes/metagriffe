@@ -22,9 +22,11 @@ export async function getStaticPaths() {
       _type == "services" => {_type,h2,services[]{h3,text,img{alt,'src':asset->url},"href":href->slug,ancre}},
       _type == "feature" => {_type,h2,img{alt,'src':asset->url},h3,text,"href":href->slug,ancre},
       _type == "cta" => {_type,h2,text,btn},
+      _type == "title" => {_type,h1,text},
+      _type == "faq" => {_type,h2,questions},
       _type == "block" => {...},
     }
-  }`
+  }`,
   );
   // Compose the URL for your project's endpoint and add the query
   URL = `https://${

@@ -93,6 +93,8 @@ export default {
         {type: 'services'},
         {type: 'feature'},
         {type: 'cta'},
+        {type: 'title'},
+        {type: 'faq'},
       ],
     },
   ],
