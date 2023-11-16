@@ -58,8 +58,8 @@ let data = await fetch(URLQUERY)
                       </a>
                       <ul>
                         {el.subpages.map((sub) => (
-                          <li class="text-xs lg:text-base">
-                            <a href={sub.url} class="main-footer__link">
+                          <li class="text-xs lg:text-base py-4">
+                            <a href={sub.url} class="main-footer__link ">
                               {sub.nom}
                             </a>
                           </li>
@@ -85,9 +85,11 @@ let data = await fetch(URLQUERY)
                       </span>
                       <ul class="">
                         {el.subpages.map((sub) => (
-                          <li class="text-xs lg:text-base">
-                            <a href={sub.url} class="main-footer__link">
-                              {sub.nom}
+                          <li class="text-xs lg:text-base flex justify-center items-center min-h-[48px] my-auto">
+                            <a
+                              href={sub.url}
+                              class="main-footer__link flex justify-center items-center h-[48px]">
+                              <span>{sub.nom}</span>
                             </a>
                           </li>
                         ))}
@@ -256,7 +258,7 @@ Usage: codyhouse.co/license
   }
 
   .main-footer__link {
-    @apply px-1 py-0.5 block;
+    @apply px-1 py-0.5;
   }
   .main-footer__link:hover {
     background-color: var(--accent1Color);
