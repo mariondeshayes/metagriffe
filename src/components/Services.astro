@@ -4,34 +4,39 @@ import Image from "./Image.astro";
 const { node } = Astro.props;
 ---
 
-<section class="my-32">
-  <hr class="small-separator mb-8" />
-  <h2
-    class="mx-4 text-3xl sm:text-4xl md:text-6xl xl:text-7xl font-extrabold uppercase mb-4 bg-[var(--accent1Color)]"
-    set:html={node.h2}
-  />
-
-  <div class="switcher justify-center mx-4 md:mx-auto mt-16">
+<section class="w-full border-y-4 border-[var(--textColor)]">
+  <!-- <hr class="small-separator mb-8" /> -->
+  {
+    node.h2 && (
+      <h2
+        class="mt-16 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase w-fit mx-4 md:ml-auto md:mr-4 border-t-4 border-[var(--textColor)] pt-2"
+        set:html={node.h2}
+      />
+    )
+  }
+  <div class="mx-4 md:mx-auto flex flex-col gap-8 md:gap-0">
     {
       node.services.map((service) => (
         <a
           href={`/${service.href}`}
-          class="md:max-w-xs border-2 border-[var(--textColor)] p-2 flex flex-col justify-between">
-          <div>
+          class="service-item w-full md:border-t-2 py-16 border-[var(--textColor)] flex flex-col md:grid md:grid-cols-12">
+          <div class="col-span-4 h-72">
             <Image
               src={service.img.src}
               alt={service.img.alt}
-              class="w-full h-64 object-cover"
+              class="h-full object-cover"
             />
+          </div>
+          <div class="col-span-6 flex flex-col justify-between px-4">
             <h3
               class="text-xl uppercase font-extrabold my-4"
               set:html={service.h3}
             />
             <div>
               <PortableText value={service.text} />
+              <p class="my-4 btn">{service.ancre}</p>
             </div>
           </div>
-          <p class="my-4 btn">{service.ancre}</p>
         </a>
       ))
     }
@@ -39,19 +44,16 @@ const { node } = Astro.props;
 </section>
 
 <style>
-  .switcher {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2rem;
+  .service-item + .service-item {
+    @apply -mt-0.5;
   }
-
-  .switcher > * {
-    flex-grow: 1;
-    flex-basis: calc((900px - 100%) * 999);
+  .service-item:first-child {
+    @apply border-t-0;
   }
-
-  .switcher > :nth-last-child(n + 5),
-  .switcher > :nth-last-child(n + 5) ~ * {
-    flex-basis: 100%;
+  .service-item:nth-child(odd) > div:first-child {
+    @apply col-start-1;
+  }
+  .service-item:nth-child(even) > div:first-child {
+    @apply col-start-9 row-start-1;
   }
 </style>

@@ -3,13 +3,17 @@ import { PortableText } from "astro-portabletext";
 const { node } = Astro.props;
 ---
 
-<section class="my-32">
-  <hr class="small-separator mb-8" />
-  <h2
-    class="mx-4 text-3xl sm:text-4xl md:text-6xl xl:text-7xl font-extrabold uppercase bg-[var(--accent1Color)]"
-    set:html={node.h2}
-  />
-  <div class="list-border">
+<section class="w-full border-t-4 border-[var(--textColor)] -mt-1">
+  <!-- <hr class="small-separator mb-8" /> -->
+  {
+    node.h2 && (
+      <h2
+        class="mt-16 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase w-fit mx-4 md:ml-auto md:mr-4 border-t-4 border-[var(--textColor)] pt-2"
+        set:html={node.h2}
+      />
+    )
+  }
+  <div class="list-border mt-8 md:mt-32">
     {
       node.valeurs.map((valeur) => (
         <div class="my-16 flex flex-col md:flex-row gap-8">

@@ -4,30 +4,51 @@ import { PortableText } from "astro-portabletext";
 const { node } = Astro.props;
 ---
 
-<section class="my-32 mx-4">
-  <hr class="small-separator mb-8" />
-  <h2
-    class="text-3xl sm:text-4xl md:text-6xl xl:text-7xl font-extrabold uppercase mb-16 bg-[var(--accent1Color)]"
-    set:html={node.h2}
-  />
+<section class="feature">
+  <!-- <hr class="small-separator mb-8" /> -->
+  {
+    node.h2 && (
+      <h2
+        class="mt-16 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase w-fit mx-4 md:mr-auto md:ml-4 border-t-4 border-[var(--textColor)] pt-2"
+        set:html={node.h2}
+      />
+    )
+  }
   <div
-    class="flex flex-col md:flex-row justify-center items-center gap-4 md:mr-0">
+    class="feature-content flex items-stretch justify-center gap-4 mt-16 md:mr-0 border-b-4 border-[var(--textColor)]">
     <div class="flex-0 w-full md:w-2/5 frame">
       <Image
         src={node.img.src}
         alt={node.img.alt}
-        class="h-[700px] object-cover"
+        class="h-[350px] md:h-[700px] object-cover"
       />
     </div>
-    <div class="flex-0 w-full md:w-3/5 z-10">
-      <h3
-        class="text-xl sm:text-3xl md:text-4xl xl:text-6xl mb-4 font-extrabold"
-        set:html={node.h3}
-      />
-      <div class="text-base md:text-lg xl:text-2xl font-normal mb-8">
-        <PortableText value={node.text} />
+    <div
+      class="flex-0 w-full md:w-3/5 z-10 flex flex-col justify-between pb-4 px-4">
+      {
+        node.h3 && (
+          <h3
+            class="text-xl sm:text-3xl md:text-4xl xl:text-6xl my-4 font-extrabold"
+            set:html={node.h3}
+          />
+        )
+      }
+      <div>
+        {
+          node.text && (
+            <div class="text-base md:text-lg xl:text-2xl font-normal mb-8">
+              <PortableText value={node.text} />
+            </div>
+          )
+        }
+        {
+          node.href && (
+            <a class="btn" href={node.href}>
+              {node.ancre}
+            </a>
+          )
+        }
       </div>
-      <a class="btn" href={node.href}>{node.ancre}</a>
     </div>
   </div>
 </section>
