@@ -9,6 +9,8 @@ import Head from "../components/Head.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
+import Contact from "../components/Contact.astro";
+
 export async function getStaticPaths() {
   let QUERY, URL;
 
@@ -24,10 +26,12 @@ export async function getStaticPaths() {
       _type == "cta" => {_type,h2,text,btn},
       _type == "title" => {_type,h1,text},
       _type == "faq" => {_type,h2,questions},
+      _type == "contact" => {_type,prenom,nom,societe,email,message},
       _type == "block" => {...},
     }
   }`,
   );
+
   // Compose the URL for your project's endpoint and add the query
   URL = `https://${
     import.meta.env.PROJECT_ID

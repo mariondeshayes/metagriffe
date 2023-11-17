@@ -7,6 +7,7 @@ import Feature from "../components/Feature.astro";
 import Cta from "../components/Cta.astro";
 import Title from "../components/Title.astro";
 import FAQ from "./FAQ.astro";
+import Contact from "./Contact.astro";
 
 const { data, context } = Astro.props;
 let value;
@@ -26,6 +27,7 @@ if (data) {
       cta: Cta,
       title: Title,
       faq: FAQ,
+      contact: Contact,
     },
   }}
 />

@@ -7,5 +7,17 @@ import feature from './cmp/feature'
 import cta from './cmp/cta'
 import title from './cmp/title'
 import faq from './cmp/faq'
+import contact from './cmp/contact'
 
-export const schemaTypes = [global, pages, hero, valeurs, services, feature, cta, title, faq]
+export const schemaTypes = [
+  global,
+  pages,
+  hero,
+  valeurs,
+  services,
+  feature,
+  cta,
+  title,
+  faq,
+  contact,
+]

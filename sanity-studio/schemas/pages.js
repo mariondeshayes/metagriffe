@@ -95,6 +95,7 @@ export default {
         {type: 'cta'},
         {type: 'title'},
         {type: 'faq'},
+        {type: 'contact'},
       ],
     },
   ],
