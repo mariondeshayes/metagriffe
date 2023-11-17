@@ -99,5 +99,10 @@ export default {
         },
       ],
     },
+    {
+      name: 'rgpd',
+      type: 'text',
+      title: 'texte RGPD',
+    },
   ],
 }
