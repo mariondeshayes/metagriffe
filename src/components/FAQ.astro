@@ -25,7 +25,10 @@ const { node } = Astro.props;
           <button
             class="accordion__header py-3 lg:py-5 px-5 lg:px-8 js-tab-focus"
             type="button">
-            <span class="text-lg lg:text-2xl" set:html={el.question} />
+            <span
+              class="text-lg lg:text-2xl font-semibold"
+              set:html={el.question}
+            />
 
             <svg
               class="icon h-[20px] w-[20px] inline-block text-inherit fill-current leading-none shrink-0 accordion__icon-plus no-js:is-hidden"
