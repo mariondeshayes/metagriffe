@@ -20,7 +20,9 @@ const { node } = Astro.props;
     }
     {
       node.btn && (
-        <a class="btn border mx-4" href={node.btn.href}>
+        <a
+          class="btn border mx-4 hover:border hover:border-[var(--textColor)]"
+          href={node.btn.href}>
           {node.btn.ancre}
         </a>
       )

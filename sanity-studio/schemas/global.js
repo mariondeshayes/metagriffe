@@ -50,13 +50,7 @@ export default {
       type: 'color',
       name: 'accent1Color',
       group: 'theme',
-      title: 'Couleur accentuation 1',
-    },
-    {
-      type: 'color',
-      name: 'accent2Color',
-      group: 'theme',
-      title: 'Couleur accentuation 2',
+      title: 'Couleur accentuation',
     },
     {
       type: 'text',

@@ -104,5 +104,15 @@ export default {
       type: 'text',
       title: 'texte RGPD',
     },
+    {
+      name: 'btn',
+      type: 'string',
+      title: 'texte bouton Envoyer',
+    },
+    {
+      name: 'success',
+      type: 'string',
+      title: "Message d'envoi réussi",
+    },
   ],
 }

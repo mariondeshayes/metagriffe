@@ -20,6 +20,10 @@ const { node } = Astro.props;
         </div>
       )
     }
-    <a class="btn border w-fit" href={node.btn.href}>{node.btn.ancre}</a>
+    <a
+      class="btn border hover:border hover:border-[var(--textColor)] w-fit"
+      href={node.btn.href}>
+      {node.btn.ancre}
+    </a>
   </div>
 </section>

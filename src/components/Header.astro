@@ -1,7 +1,8 @@
 ---
 import Image from "./Image.astro";
 
-const currentPath = Astro.url.pathname;
+let currentPath = Astro.url.pathname;
+currentPath = currentPath.replaceAll("/", "");
 
 let QUERY, URLQUERY;
 
@@ -72,7 +73,7 @@ let data = await fetch(URLQUERY)
                     <a
                       href={`/${el.url}`}
                       class={
-                        currentPath == `/${el.url}`
+                        currentPath == el.url
                           ? "f-header__link active"
                           : "f-header__link"
                       }>
@@ -90,7 +91,7 @@ let data = await fetch(URLQUERY)
                           <a
                             href={`/${item.url}`}
                             class={
-                              currentPath == `/${item.url}`
+                              currentPath == item.url
                                 ? "f-header__dropdown-link active"
                                 : "f-header__dropdown-link"
                             }>
@@ -107,7 +108,7 @@ let data = await fetch(URLQUERY)
                     <a
                       href={`/${el.url}`}
                       class={
-                        currentPath == `/${el.url}`
+                        currentPath == el.url
                           ? "f-header__link active"
                           : "f-header__link"
                       }>
@@ -133,9 +134,9 @@ let data = await fetch(URLQUERY)
                       {el.subpages.map((item) => (
                         <li>
                           <a
-                            href={`/${item.url}`}
+                            href={`/${item.url}/`}
                             class={
-                              currentPath == `/${item.url}`
+                              currentPath == item.url
                                 ? "f-header__dropdown-link active"
                                 : "f-header__dropdown-link"
                             }>

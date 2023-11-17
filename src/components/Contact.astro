@@ -4,10 +4,10 @@ const pathname = Astro.url.pathname;
 let placeholder = "Comment puis-je vous aider ?";
 ---
 
-<section class="px-4 my-16">
-  <form netlify method="POST" name={pathname} class="ml-2">
+<section class="px-4 my-16 max-w-7xl mx-auto">
+  <form netlify method="POST" name={pathname} data-success={node.success}>
     <div class="flex flex-col">
-      <div class="row flex flex-col sm:flex-row">
+      <div class="row flex flex-col md:flex-row">
         <label>
           <span>{node.prenom.label}</span>
           <input
@@ -27,7 +27,7 @@ let placeholder = "Comment puis-je vous aider ?";
           />
         </label>
       </div>
-      <div class="row flex flex-col sm:flex-row">
+      <div class="row flex flex-col md:flex-row">
         <label>
           <span>{node.societe.label}</span>
           <input
@@ -60,76 +60,116 @@ let placeholder = "Comment puis-je vous aider ?";
               class="custom-checkbox__input"
               type="checkbox"
               aria-label="Checkbox label"
+              required
             />
             <div class="custom-checkbox__control" aria-hidden="true"></div>
           </div>
         </label>
       </div>
-      <a
-        class="btn btn-form border-4 border-[var(--textColor)] box-content mr-0.5 sm:mr-1.5 -mt-0.5 ml-auto"
-        href="/">
-        Envoyer
-      </a>
+      <button class="btn btn-form mr-0 ml-auto" type="submit">
+        {node.btn}
+      </button>
     </div>
   </form>
 </section>
 
 <script>
+  //Handle the placeholder of the textarea in js since prettier mess up the code
   const textarea = document.querySelector("textarea");
   const textareaLabel = document.querySelector("label.textarea");
   if (textarea) {
     textarea.placeholder = textareaLabel.dataset.placeholder;
   }
+
+  //Show the success message when the form is successfully send
+  const onSubmit = (event) => {
+    event.preventDefault();
+
+    const myForm = event.target;
+    const formData = new FormData(myForm);
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData).toString(),
+    })
+      .then(() => alert(myForm.dataset.success))
+      .then(myForm.reset())
+
+      .catch((error) => alert(error));
+  };
+
+  if (document.querySelector("form")) {
+    document.querySelector("form").addEventListener("submit", onSubmit);
+  }
 </script>
 
 <style>
-  .btn-form:hover {
-    border: 4px solid var(--textColor);
+  .btn-form {
+    box-shadow:
+      4px 0 0 0 var(--textColor),
+      0 4px 0 0 var(--textColor),
+      4px 4px 0 0 var(--textColor),
+      /* Just to fix the corner */ 4px 0 0 0 var(--textColor) inset,
+      0 4px 0 0 var(--textColor) inset;
   }
+
   label {
-    @apply flex justify-center items-center border-4 border-[var(--textColor)] -m-0.5 uppercase font-extrabold;
+    @apply flex justify-center items-center uppercase font-extrabold;
+    box-shadow:
+      4px 0 0 0 var(--textColor),
+      0 4px 0 0 var(--textColor),
+      4px 4px 0 0 var(--textColor),
+      /* Just to fix the corner */ 4px 0 0 0 var(--textColor) inset,
+      0 4px 0 0 var(--textColor) inset;
   }
 
   label:not(.textarea):not(.rgpd) {
-    @apply w-full sm:w-1/2  h-[64px] flex-col xs:flex-row;
+    @apply w-full md:w-1/2  h-[64px] box-border flex-col xs:flex-row py-4;
+  }
+
+  label:not(.textarea):not(.rgpd) > span {
+    @apply pl-4 w-[35%] mr-4 inline-block;
   }
 
   label.textarea {
-    @apply w-full sm:w-[calc(100%-4px)] flex flex-col sm:flex-row;
+    @apply w-full flex flex-col md:flex-row;
   }
 
   label.textarea > span {
-    @apply py-8;
+    @apply py-8 mx-4;
   }
 
   textarea {
+    @apply p-4;
     background-color: var(--bgColor);
-    border: 4px solid black;
-    @apply -my-1 box-content;
-    @apply px-0 sm:px-2 py-1 w-full sm:w-[70%] h-full outline-none -mr-0 sm:-mr-1;
-  }
-
-  label > span {
-    @apply px-4 w-full xs:w-[30%];
-    display: inline-block;
+    box-shadow:
+      4px 0 0 0 var(--textColor),
+      0 4px 0 0 var(--textColor),
+      4px 4px 0 0 var(--textColor),
+      /* Just to fix the corner */ 4px 0 0 0 var(--textColor) inset,
+      0 4px 0 0 var(--textColor) inset;
+    @apply box-content;
+    @apply w-full h-full outline-none;
   }
 
   input {
     background-color: var(--bgColor);
-    @apply px-2 py-1 w-[70%] h-full outline-none;
+    @apply px-2 py-1 w-[calc(100%-10px)] md:w-[70%] h-[calc(100%-10px)] outline-none;
   }
 
   label.rgpd {
-    @apply w-full sm:w-[calc(100%-4px)];
+    @apply w-full;
   }
 
   label.rgpd > span {
-    @apply w-full py-4 font-light;
+    @apply w-[90%] py-4 font-light;
   }
 
   input::placeholder,
   textarea::placeholder {
     font-weight: 400;
+    @apply p-2;
   }
 
   /* --------------------------------
