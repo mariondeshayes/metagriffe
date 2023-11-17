@@ -66,7 +66,7 @@ let placeholder = "Comment puis-je vous aider ?";
         </label>
       </div>
       <a
-        class="btn border-4 border-[var(--textColor)] box-content mr-1.5 -mt-0.5 ml-auto"
+        class="btn btn-form border-4 border-[var(--textColor)] box-content mr-0.5 sm:mr-1.5 -mt-0.5 ml-auto"
         href="/">
         Envoyer
       </a>
@@ -83,6 +83,9 @@ let placeholder = "Comment puis-je vous aider ?";
 </script>
 
 <style>
+  .btn-form:hover {
+    border: 4px solid var(--textColor);
+  }
   label {
     @apply flex justify-center items-center border-4 border-[var(--textColor)] -m-0.5 uppercase font-extrabold;
   }
