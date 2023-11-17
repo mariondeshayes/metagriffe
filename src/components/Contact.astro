@@ -1,0 +1,108 @@
+---
+const { node } = Astro.props;
+const pathname = Astro.url.pathname;
+let placeholder = "Comment puis-je vous aider ?";
+---
+
+<section class="px-4 my-16">
+  <form netlify method="POST" name={pathname}>
+    <div class="flex flex-col">
+      <div class="row flex flex-col sm:flex-row">
+        <label>
+          <span>{node.prenom.label}</span>
+          <input
+            type="text"
+            name="Prénom"
+            placeholder={node.prenom.placeholder}
+            required
+          />
+        </label>
+        <label>
+          <span>{node.nom.label}</span>
+          <input
+            type="text"
+            name="Nom"
+            placeholder={node.nom.placeholder}
+            required
+          />
+        </label>
+      </div>
+      <div class="row flex flex-col sm:flex-row">
+        <label>
+          <span>{node.societe.label}</span>
+          <input
+            type="text"
+            name="Société"
+            placeholder={node.societe.placeholder}
+          />
+        </label>
+        <label>
+          <span>{node.email.label}</span>
+          <input
+            type="email"
+            name="Email"
+            placeholder={node.email.placeholder}
+            required
+          />
+        </label>
+      </div>
+      <div class="row">
+        <label class="textarea" data-placeholder={node.message.placeholder}>
+          <span>{node.message.label}</span>
+          <textarea name="message" rows="15"></textarea>
+        </label>
+      </div>
+    </div>
+  </form>
+</section>
+
+<script>
+  const textarea = document.querySelector("textarea");
+  const textareaLabel = document.querySelector("label.textarea");
+  if (textarea) {
+    textarea.placeholder = textareaLabel.dataset.placeholder;
+  }
+</script>
+
+<style>
+  label {
+    @apply flex justify-center items-center border-4 border-[var(--textColor)] -m-0.5 uppercase font-extrabold;
+  }
+
+  label:not(.textarea) {
+    @apply w-full sm:w-1/2  h-[64px] flex-col xs:flex-row;
+  }
+
+  label.textarea {
+    @apply w-full sm:w-[calc(100%-4px)] flex flex-col sm:flex-row;
+  }
+
+  label.textarea > span {
+    @apply py-8;
+  }
+
+  textarea {
+    background-color: var(--bgColor);
+    border: 4px solid black;
+    @apply -my-1 box-content;
+    @apply px-0 sm:px-2 py-1 w-full sm:w-[70%] h-full outline-none -mr-0 sm:-mr-1;
+  }
+
+  label > span {
+    @apply px-4 w-full xs:w-[30%];
+    display: inline-block;
+  }
+
+  input {
+    background-color: var(--bgColor);
+    @apply px-2 py-1 w-[70%] h-full outline-none;
+  }
+
+  textarea {
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    font-weight: 400;
+  }
+</style>
