@@ -3,6 +3,24 @@ body {
   color: var(--textColor);
 }
 
+html {
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+  width: 15px;
+  background-color: var(--textColor);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent1Color);
+}
+
+* {
+  scrollbar-color: var(--accent1Color) var(--textColor);
+}
+
 .btn {
   @apply text-lg md:text-2xl whitespace-nowrap;
   background-color: var(--accent1Color);
