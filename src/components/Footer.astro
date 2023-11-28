@@ -53,13 +53,13 @@ let data = await fetch(URLQUERY)
                 if (el.subpages) {
                   return (
                     <li>
-                      <a href={el.url} class="main-footer__link">
+                      <a href={`/${el.url}`} class="main-footer__link">
                         <span class="text-lg lg:text-2xl">{el.nom}</span>
                       </a>
                       <ul>
                         {el.subpages.map((sub) => (
                           <li class="text-xs lg:text-base py-4">
-                            <a href={sub.url} class="main-footer__link ">
+                            <a href={`/${sub.url}`} class="main-footer__link ">
                               {sub.nom}
                             </a>
                           </li>
@@ -70,7 +70,7 @@ let data = await fetch(URLQUERY)
                 } else {
                   return (
                     <li class="">
-                      <a href={el.url} class="main-footer__link">
+                      <a href={`/${el.url}`} class="main-footer__link">
                         <span class="text-lg lg:text-2xl">{el.nom}</span>
                       </a>
                     </li>
@@ -87,7 +87,7 @@ let data = await fetch(URLQUERY)
                         {el.subpages.map((sub) => (
                           <li class="text-xs lg:text-base flex justify-center items-center min-h-[48px] my-auto">
                             <a
-                              href={sub.url}
+                              href={`/${sub.url}`}
                               class="main-footer__link flex justify-center items-center h-[48px]">
                               <span>{sub.nom}</span>
                             </a>
