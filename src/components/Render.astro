@@ -1,13 +1,7 @@
 ---
 import { PortableText } from "astro-portabletext";
-import Hero from "./Hero.astro";
-import Valeurs from "../components/Valeurs.astro";
-import Services from "../components/Services.astro";
-import Feature from "../components/Feature.astro";
-import Cta from "../components/Cta.astro";
-import Title from "../components/Title.astro";
-import FAQ from "./FAQ.astro";
-import Contact from "./Contact.astro";
+
+const composants = await Astro.glob("./cmp/*.astro");
 
 const { data, context } = Astro.props;
 let value;
@@ -20,14 +14,17 @@ if (data) {
   value={value}
   components={{
     type: {
-      hero: Hero,
-      valeurs: Valeurs,
-      services: Services,
-      feature: Feature,
-      cta: Cta,
-      title: Title,
-      faq: FAQ,
-      contact: Contact,
+      hero: composants.find((cmp) => cmp.default.name === "Hero").default,
+      valeurs: composants.find((cmp) => cmp.default.name === "Valeurs").default,
+      services: composants.find((cmp) => cmp.default.name === "Services")
+        .default,
+      feature: composants.find((cmp) => cmp.default.name === "Feature").default,
+      cta: composants.find((cmp) => cmp.default.name === "Cta").default,
+      title: composants.find((cmp) => cmp.default.name === "Title").default,
+      faq: composants.find((cmp) => cmp.default.name === "FAQ").default,
+      contact: composants.find((cmp) => cmp.default.name === "Contact").default,
+      etapes: composants.find((cmp) => cmp.default.name === "Etapes").default,
+    },
     },
   }}
 />
