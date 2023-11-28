@@ -8,6 +8,7 @@ import cta from './cmp/cta'
 import title from './cmp/title'
 import faq from './cmp/faq'
 import contact from './cmp/contact'
+import etapes from './cmp/etapes'
 
 export const schemaTypes = [
   global,
@@ -20,4 +21,5 @@ export const schemaTypes = [
   title,
   faq,
   contact,
+  etapes,
 ]

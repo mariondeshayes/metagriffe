@@ -96,6 +96,7 @@ export default {
         {type: 'title'},
         {type: 'faq'},
         {type: 'contact'},
+        {type: 'etapes'},
       ],
     },
   ],
