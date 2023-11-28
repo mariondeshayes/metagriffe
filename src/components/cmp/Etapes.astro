@@ -1,0 +1,46 @@
+---
+import { PortableText } from "astro-portabletext";
+const { node } = Astro.props;
+---
+
+<section
+  class="px-4 flex justify-center items-start gap-8 flex-col xl:flex-row pb-8 border-b-4 border-[var(--textColor)]">
+  <div class="w-full xl:max-w-[35%] pt-16">
+    <h2
+      class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto"
+      set:html={node.h2}
+    />
+  </div>
+  <ol
+    class="list-decimal list-inside flex flex-col md:flex-row w-full xl:w-[65%]">
+    {
+      node.etapes.map((etape) => {
+        return (
+          <li class={`md:w-1/${node.etapes.length}`}>
+            <h3 set:html={etape.h3} />
+            <div>
+              <PortableText value={etape.text} />
+            </div>
+          </li>
+        );
+      })
+    }
+  </ol>
+</section>
+
+<style>
+  ol {
+    counter-reset: item;
+    list-style-type: none;
+  }
+  li {
+    @apply flex flex-col justify-center h-full w-full px-0 md:px-8 border-b-2 md:border-0 border-[var(--textColor)];
+  }
+  li:before {
+    content: counter(item) "  ";
+    counter-increment: item;
+    font-family: sans-serif;
+    font-weight: 800;
+    font-size: 15vw;
+  }
+</style>
