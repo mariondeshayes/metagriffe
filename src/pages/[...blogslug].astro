@@ -1,0 +1,88 @@
+---
+import "../styles/global.scss";
+import Fonts from "../styles/fonts.astro";
+import Colors from "../styles/colors.astro";
+
+import Render from "../components/Render.astro";
+
+import Intro from "../components/cmp/IntroBlog.astro";
+import Sharing from "../components/cmp/Sharing.astro";
+
+import Head from "../components/Head.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+export async function getStaticPaths() {
+  let QUERYBLOG, URLBLOG;
+
+  //FETCH PAGE, CAT CONTENT
+  QUERYBLOG = encodeURIComponent(
+    `*[_type == "post"]{
+    "seo": {title,description,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
+    "blog": {h1,abstract,img{alt,'src':asset->url}, twitterText, twitterHashtags, pinterestDescription},
+    content[]{
+      _type == "hero" => {_type,h1,p,btn,img{alt,'src':asset->url}},
+      _type == "valeurs" => {_type,h2,valeurs},
+      _type == "services" => {_type,h2,services[]{h3,text,img{alt,'src':asset->url},"href":href->slug,ancre}},
+      _type == "feature" => {_type,h2,img{alt,'src':asset->url},h3,text,"href":href->slug,ancre},
+      _type == "cta" => {_type,h2,text,btn},
+      _type == "title" => {_type,h1,text},
+      _type == "faq" => {_type,h2,questions},
+      _type == "contact" => {_type,prenom,nom,societe,email,message,rgpd,btn,success},
+      _type == "etapes" => {_type, h2, etapes},
+      _type == "block" => {...},
+    }
+  }`,
+  );
+
+  // Compose the URL for your project's endpoint and add the query
+  URLBLOG = `https://${
+    import.meta.env.PROJECT_ID
+  }.api.sanity.io/v2021-10-21/data/query/${
+    import.meta.env.DATASET
+  }?query=${QUERYBLOG}`;
+  // fetch the content
+  let data = await fetch(URLBLOG)
+    .then((res) => res.json())
+    .then(({ result }) => {
+      return result;
+    })
+    .catch((err) => console.error(err));
+
+  let pages = data.map((page) => {
+    return {
+      blogslug: page.seo.slug,
+      seo: page.seo,
+      blog: page.blog,
+      content: page.content,
+    };
+  });
+  return pages.map(({ blogslug, seo, blog, content }) => {
+    if (blogslug == null) {
+      blogslug = undefined;
+    }
+    return {
+      params: { blogslug },
+      props: { seo, blog, content },
+    };
+  });
+}
+
+const { blogslug } = Astro.params;
+console.log(blogslug);
+const { seo, blog, content } = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr" prefix="og: http://ogp.me/ns#">
+  <Head seo={seo} />
+  <Fonts />
+  <Colors />
+  <body>
+    <Header />
+    <Intro data={blog} />
+    <Render data={content} />
+    <Sharing data={blog} />
+    <Footer />
+  </body>
+</html>
