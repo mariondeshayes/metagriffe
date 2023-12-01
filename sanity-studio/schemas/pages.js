@@ -29,7 +29,6 @@ export default {
       name: 'name',
       type: 'string',
       title: 'Nom de la page',
-      group: 'seo',
       description: "Ce paramètre n'est utilisé que dans le CMS et ne change pas le slug",
       validation: (Rule) => Rule.required().warning('Le nom de la page est obligatoire'),
     },
