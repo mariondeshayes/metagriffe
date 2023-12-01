@@ -47,24 +47,24 @@ export async function getStaticPaths() {
 
   let pages = data.map((page) => {
     return {
-      slug: page.seo.slug,
+      pageslug: page.seo.slug,
       seo: page.seo,
       content: page.content,
     };
   });
-  return pages.map(({ slug, seo, content }) => {
-    if (slug == null) {
-      slug = undefined;
+  return pages.map(({ pageslug, seo, content }) => {
+    if (pageslug == null) {
+      pageslug = undefined;
     }
     return {
-      params: { slug },
+      params: { pageslug },
       props: { seo, content },
     };
   });
 }
 
-const { slug } = Astro.params;
-console.log(slug);
+const { pageslug } = Astro.params;
+console.log(pageslug);
 const { seo, content } = Astro.props;
 ---
 
