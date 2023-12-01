@@ -1,5 +1,6 @@
 import global from './global'
 import pages from './pages'
+import posts from './posts'
 import hero from './cmp/hero'
 import valeurs from './cmp/valeurs'
 import services from './cmp/services'
@@ -13,6 +14,7 @@ import etapes from './cmp/etapes'
 export const schemaTypes = [
   global,
   pages,
+  posts,
   hero,
   valeurs,
   services,
