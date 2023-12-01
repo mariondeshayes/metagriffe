@@ -36,10 +36,7 @@ export default defineConfig({
 
             // Regular document types
             S.documentTypeListItem('page').title('Pages'),
-            // S.documentTypeListItem('cat').title('Catégories'),
-            // S.documentTypeListItem('agence').title('Agences'),
-            // S.documentTypeListItem('realisations').title('Réalisations'),
-            // S.documentTypeListItem('actualites').title('Actualités - Articles'),
+            S.documentTypeListItem('post').title('Articles de blog'),
           ]),
     }),
     ,
