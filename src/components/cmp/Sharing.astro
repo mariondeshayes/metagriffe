@@ -1,0 +1,209 @@
+---
+const { data } = Astro.props;
+
+console.log(`${Astro.site}`);
+const currentUrl = new URL(Astro.url.pathname, Astro.site);
+---
+
+<section class="my-16">
+  <div
+    class="w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-5xl">
+    <div class="mb-5 lg:mb-8">
+      <p class="text-center">Partager cet article</p>
+    </div>
+
+    <ul class="sharebar flex flex-wrap gap-2 lg:gap-3 justify-center">
+      <li>
+        <a
+          class="sharebar__btn js-social-share"
+          data-social="twitter"
+          data-text={data.twitterText}
+          data-hashtags={data.twitterHashtags}
+          href="https://twitter.com/intent/tweet">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="32"
+            height="32"
+            class="icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 24 24">
+            <title>Partager sur X</title>
+            <path
+              fill="currentColor"
+              d="M18.205 2.25h3.308l-7.227 8.26l8.502 11.24H16.13l-5.214-6.817L4.95 21.75H1.64l7.73-8.835L1.215 2.25H8.04l4.713 6.231l5.45-6.231Zm-1.161 17.52h1.833L7.045 4.126H5.078L17.044 19.77Z">
+            </path>
+          </svg>
+        </a>
+      </li>
+
+      <li>
+        <a
+          class="sharebar__btn js-social-share"
+          data-social="facebook"
+          data-url={currentUrl}
+          href="http://www.facebook.com/sharer.php">
+          <svg
+            class="icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 32 32">
+            <title>Partager sur Facebook</title><path
+              d="M32,16A16,16,0,1,0,13.5,31.806V20.625H9.438V16H13.5V12.475c0-4.01,2.389-6.225,6.043-6.225a24.644,24.644,0,0,1,3.582.312V10.5H21.107A2.312,2.312,0,0,0,18.5,13v3h4.438l-.71,4.625H18.5V31.806A16,16,0,0,0,32,16Z">
+            </path>
+          </svg>
+        </a>
+      </li>
+
+      <li>
+        <a
+          class="sharebar__btn js-social-share"
+          data-social="pinterest"
+          data-description={data.pinterestDescription}
+          data-media={data.img.src}
+          data-url={currentUrl}
+          href="http://pinterest.com/pin/create/button">
+          <svg
+            class="icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 32 32">
+            <title>Partager sur Pinterest</title><g>
+              <path
+                d="M16,0C7.2,0,0,7.2,0,16c0,6.8,4.2,12.6,10.2,14.9c-0.1-1.3-0.3-3.2,0.1-4.6c0.3-1.2,1.9-8,1.9-8 s-0.5-1-0.5-2.4c0-2.2,1.3-3.9,2.9-3.9c1.4,0,2,1,2,2.3c0,1.4-0.9,3.4-1.3,5.3c-0.4,1.6,0.8,2.9,2.4,2.9c2.8,0,5-3,5-7.3 c0-3.8-2.8-6.5-6.7-6.5c-4.6,0-7.2,3.4-7.2,6.9c0,1.4,0.5,2.8,1.2,3.7c0.1,0.2,0.1,0.3,0.1,0.5c-0.1,0.5-0.4,1.6-0.4,1.8 C9.5,21.9,9.3,22,9,21.8c-2-0.9-3.2-3.9-3.2-6.2c0-5,3.7-9.7,10.6-9.7c5.6,0,9.9,4,9.9,9.2c0,5.5-3.5,10-8.3,10 c-1.6,0-3.1-0.8-3.7-1.8c0,0-0.8,3.1-1,3.8c-0.4,1.4-1.3,3.1-2,4.2c1.5,0.5,3.1,0.7,4.7,0.7c8.8,0,16-7.2,16-16C32,7.2,24.8,0,16,0z ">
+              </path>
+            </g>
+          </svg>
+        </a>
+      </li>
+
+      <li>
+        <a
+          class="sharebar__btn js-social-share"
+          data-social="linkedin"
+          data-url={currentUrl}
+          href="https://www.linkedin.com/shareArticle">
+          <svg
+            class="icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 32 32">
+            <title>Partager sur Linkedin</title><g>
+              <path
+                d="M29,1H3A2,2,0,0,0,1,3V29a2,2,0,0,0,2,2H29a2,2,0,0,0,2-2V3A2,2,0,0,0,29,1ZM9.887,26.594H5.374V12.25H9.887ZM7.63,10.281a2.625,2.625,0,1,1,2.633-2.625A2.624,2.624,0,0,1,7.63,10.281ZM26.621,26.594H22.2V19.656c0-1.687,0-3.75-2.35-3.75s-2.633,1.782-2.633,3.656v7.126H12.8V12.25h4.136v1.969h.094a4.7,4.7,0,0,1,4.231-2.344c4.513,0,5.359,3,5.359,6.844Z">
+              </path>
+            </g>
+          </svg>
+        </a>
+      </li>
+
+      <li>
+        <a
+          class="sharebar__btn js-social-share"
+          data-social="mail"
+          data-subject={data.mailObject}
+          data-body={data.mailBody}
+          href="mailto:">
+          <svg
+            class="icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
+            viewBox="0 0 32 32">
+            <title>Partager par Email</title><g>
+              <path
+                d="M28,3H4A3.957,3.957,0,0,0,0,7V25a3.957,3.957,0,0,0,4,4H28a3.957,3.957,0,0,0,4-4V7A3.957,3.957,0,0,0,28,3Zm.6,6.8-12,9a1,1,0,0,1-1.2,0l-12-9A1,1,0,0,1,4.6,8.2L16,16.75,27.4,8.2a1,1,0,1,1,1.2,1.6Z">
+              </path>
+            </g>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* --------------------------------
+
+File#: _1_social-sharing
+Title: Social Sharing
+Descr: Social sharing plugin
+Usage: codyhouse.co/license
+
+-------------------------------- */
+  .sharebar__btn {
+    --size: 60px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    transition: 0.2s;
+  }
+  .sharebar__btn .icon {
+    --size: 24px;
+    display: block;
+    margin: auto;
+    @apply text-[var(--textColor)];
+    transition: color 0.2s;
+  }
+  .sharebar__btn:hover {
+    @apply bg-[var(--accent1Color)];
+    @apply shadow;
+  }
+</style>
+
+<script>
+  // File#: _1_social-sharing
+  // Usage: codyhouse.co/license
+  (function () {
+    function initSocialShare(button) {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        var social = button.getAttribute("data-social");
+        var url = getSocialUrl(button, social);
+        social == "mail"
+          ? (window.location.href = url)
+          : window.open(url, social + "-share-dialog", "width=626,height=436");
+      });
+    }
+
+    function getSocialUrl(button, social) {
+      var params = getSocialParams(social);
+      var newUrl = "";
+      for (var i = 0; i < params.length; i++) {
+        var paramValue = button.getAttribute("data-" + params[i]);
+        if (params[i] == "hashtags")
+          paramValue = encodeURI(paramValue.replace(/\#| /g, ""));
+        if (paramValue) {
+          social == "facebook"
+            ? (newUrl = newUrl + "u=" + encodeURIComponent(paramValue) + "&")
+            : (newUrl =
+                newUrl +
+                params[i] +
+                "=" +
+                encodeURIComponent(paramValue) +
+                "&");
+        }
+      }
+      if (social == "linkedin") newUrl = "mini=true&" + newUrl;
+      return button.getAttribute("href") + "?" + newUrl;
+    }
+
+    function getSocialParams(social) {
+      var params = [];
+      switch (social) {
+        case "twitter":
+          params = ["text", "hashtags"];
+          break;
+        case "facebook":
+        case "linkedin":
+          params = ["url"];
+          break;
+        case "pinterest":
+          params = ["url", "media", "description"];
+          break;
+        case "mail":
+          params = ["subject", "body"];
+          break;
+      }
+      return params;
+    }
+
+    var socialShare = document.getElementsByClassName("js-social-share");
+    if (socialShare.length > 0) {
+      for (var i = 0; i < socialShare.length; i++) {
+        (function (i) {
+          initSocialShare(socialShare[i]);
+        })(i);
+      }
+    }
+  })();
+</script>
