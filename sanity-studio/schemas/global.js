@@ -3,12 +3,20 @@ export default {
   type: 'document',
   title: 'Configuration globale du site',
   groups: [
+    {name: 'blog', title: 'Blog'},
     {name: 'seo', title: 'SEO'},
     {name: 'menu', title: 'Menu'},
     {name: 'theme', title: 'Thème'},
     {name: 'social', title: 'Réseaux Sociaux'},
   ],
   fields: [
+    {
+      name: 'cat',
+      type: 'array',
+      title: 'Catégories des articles de blog',
+      of: [{type: 'string'}],
+      groupe: 'blog',
+    },
     {
       name: 'networks',
       type: 'array',
