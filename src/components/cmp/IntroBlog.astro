@@ -1,0 +1,17 @@
+---
+const { data } = Astro.props;
+
+import Image from "../Image.astro";
+---
+
+<section class="w-full flex flex-col">
+  <Image
+    src={data.img.src}
+    alt={data.img.alt}
+    class="w-full h-[20vh] md:h-[30vh] object-cover"
+  />
+  <h1
+    class="px-4 md:pl-auto md:pr-4 pt-8 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto"
+    set:html={data.h1}
+  />
+</section>
