@@ -103,6 +103,18 @@ export default {
         Rule.max(500).warning('La description est trop longue (max 500 caractères)'),
     },
     {
+      name: 'mailObject',
+      title: "L'object du mail",
+      group: 'networks',
+      type: 'string',
+    },
+    {
+      name: 'mailBody',
+      title: 'Le corps du mail',
+      group: 'networks',
+      type: 'text',
+    },
+    {
       name: 'title',
       type: 'string',
       title: 'Title',
