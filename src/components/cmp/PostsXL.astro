@@ -30,7 +30,7 @@ const { slug, img, h1, cat, abstract } = Astro.props;
           {
             cat.map((item) => (
               <li class="bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1">
-                {item}
+                <button class="catSelector">{item}</button>
               </li>
             ))
           }

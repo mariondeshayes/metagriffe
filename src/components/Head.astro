@@ -7,7 +7,7 @@ let QUERY, URLQUERY;
 
 //FETCH THEME COLOR FROM GLOBAL
 QUERY = encodeURIComponent(
-  '*[_type == "global"]{themeColor{hex},titleExtension,"ogImageFallback":ogImageFallback.asset->url}'
+  '*[_type == "global"]{themeColor{hex},titleExtension,"ogImageFallback":ogImageFallback.asset->url}',
 );
 // Compose the URL for your project's endpoint and add the query
 URLQUERY = `https://${
@@ -57,4 +57,5 @@ if (seo.canonical === null) {
   <!-- 🎅 // Schema.org -->
   {seo.schema && <script type="application/ld+json" set:html={seo.schema} />}
   <!-- scripts -->
+  <script src="../scripts/cat.js"></script>
 </head>
