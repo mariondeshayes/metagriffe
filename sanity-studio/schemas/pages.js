@@ -97,6 +97,7 @@ export default {
         {type: 'contact'},
         {type: 'etapes'},
         {type: 'allposts'},
+        {type: 'testimonials'},
       ],
     },
   ],
