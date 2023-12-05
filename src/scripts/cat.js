@@ -1,5 +1,7 @@
 const catBtn = document.querySelectorAll(".catSelector");
 const blogPosts = document.querySelector("#blogPosts");
+const filterDisplay = document.querySelector("#filter");
+const filterBtn = filterDisplay.querySelector("button");
 
 //CHECK IF WE ARE ON A BLOG PAGE
 if(blogPosts && catBtn){
@@ -8,6 +10,8 @@ if(blogPosts && catBtn){
     btn.addEventListener("click", (event)=>{
       const targetCat = event.target.innerHTML;
       blogPosts.dataset.filter = targetCat;
+      filterDisplay.classList.remove('hidden');
+      filterBtn.innerHTML = "x "+ targetCat;
       const articles = document.querySelectorAll("article.story");
       articles.forEach((art)=>{
         const listOfCatBtn = [...art.querySelectorAll(".catSelector")];
@@ -40,8 +44,11 @@ if(blogPosts && catBtn){
   //HANDLE THE FILTER PASSED VIA URL PARAM
   const urlObj = new URLSearchParams(window.location.search);
   const targetCat = urlObj.get('filter');
+  console.log(targetCat)
   if(targetCat){
     blogPosts.dataset.filter = targetCat;
+    filterDisplay.classList.remove('hidden');
+    filterBtn.innerHTML = "x "+ targetCat;
     const articles = document.querySelectorAll("article.story");
     articles.forEach((art)=>{
       const listOfCatBtn = [...art.querySelectorAll(".catSelector")];
@@ -51,4 +58,14 @@ if(blogPosts && catBtn){
       }
     })
   }
+
+  //REMOVE THE FILTER IF BTN PRESSED
+  filterBtn.addEventListener('click',(event)=>{
+    filterDisplay.classList.add('hidden');
+    blogPosts.removeAttribute("filter");
+    const articles = document.querySelectorAll("article.story");
+    articles.forEach((art)=>{
+      art.classList.remove('hidden');
+    })
+  })
 }

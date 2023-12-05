@@ -48,6 +48,11 @@ const scrollProperty = {
   <div
     {...scrollProperty}
     class=`w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-7xl js-infinite-scroll`>
+    <p id="filter" class="text-2xl hidden">
+      Filtré par <button
+        class="ml-2 bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1 font-extrabold">
+      </button>
+    </p>
     <div
       class=`grid grid-cols-12 gap-y-8 lg:gap-12 js-infinite-scroll__content`
       aria-live="polite">
