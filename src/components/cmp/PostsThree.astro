@@ -1,0 +1,26 @@
+---
+import PostsXS from "./PostsXS.astro";
+
+const { node } = Astro.props;
+console.log(node);
+---
+
+<section class="relative z-[1] py-12 lg:py-20">
+  <div
+    class=`w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-7xl`>
+    <div class=`grid grid-cols-12 gap-y-8 lg:gap-12`>
+      {
+        node.posts.map((post) => {
+          return (
+            <PostsXS
+              slug={`/${post.slug}`}
+              h1={post.h1}
+              img={post.img}
+              cat={post.cat}
+            />
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

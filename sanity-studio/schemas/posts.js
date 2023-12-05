@@ -180,6 +180,7 @@ export default {
         {type: 'etapes'},
         {type: 'allposts'},
         {type: 'testimonials'},
+        {type: 'threeposts'},
       ],
     },
   ],

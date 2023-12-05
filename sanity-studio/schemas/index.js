@@ -12,6 +12,7 @@ import contact from './cmp/contact'
 import etapes from './cmp/etapes'
 import allposts from './cmp/allposts'
 import testimonials from './cmp/testimonials'
+import threeposts from './cmp/threeposts'
 
 export const schemaTypes = [
   global,
@@ -28,4 +29,5 @@ export const schemaTypes = [
   etapes,
   allposts,
   testimonials,
+  threeposts,
 ]
