@@ -19,7 +19,7 @@ export async function getStaticPaths() {
   QUERYBLOG = encodeURIComponent(
     `*[_type == "post"]{
     "seo": {title,description,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
-    "blog": {h1,abstract,img{alt,'src':asset->url}, twitterText, twitterHashtags, pinterestDescription, mailObject, mailBody},
+    "blog": {h1,abstract,img{alt,'src':asset->url}, twitterText, twitterHashtags, pinterestDescription, mailObject, mailBody, cat},
     content[]{
       _type == "hero" => {_type,h1,p,btn,img{alt,'src':asset->url}},
       _type == "valeurs" => {_type,h2,valeurs},
@@ -80,9 +80,13 @@ const { seo, blog, content } = Astro.props;
   <Colors />
   <body>
     <Header />
-    <Intro data={blog} />
-    <Render data={content} />
-    <Sharing data={blog} />
+    <article class="js-reading-content">
+      <Intro data={blog} />
+      <div id="content" class="mx-4 md:mx-8">
+        <Render data={content} />
+      </div>
+      <Sharing data={blog} />
+    </article>
     <Footer />
   </body>
 </html>
