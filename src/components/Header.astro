@@ -1,5 +1,6 @@
 ---
 import Image from "./Image.astro";
+import Progress from "./cmp/Progress.astro";
 
 let currentPath = Astro.url.pathname;
 currentPath = currentPath.replaceAll("/", "");
@@ -158,6 +159,7 @@ let data = await fetch(URLQUERY)
       </ul>
     </div>
   </div>
+  <Progress />
 </header>
 
 <style>
