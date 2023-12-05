@@ -178,6 +178,7 @@ export default {
         {type: 'faq'},
         {type: 'contact'},
         {type: 'etapes'},
+        {type: 'allposts'},
       ],
     },
   ],

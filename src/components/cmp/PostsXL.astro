@@ -1,0 +1,117 @@
+---
+import { PortableText } from "astro-portabletext";
+import Image from "../Image.astro";
+
+const { slug, img, h1, cat, abstract } = Astro.props;
+---
+
+<article
+  class="story story--featured col-span-12 my-16 border-4 border-[var(--textColor)]">
+  <a class="story__img lg:h-full h-auto" href={slug}>
+    <figure class="aspect-w-4 aspect-h-3 lg:h-full h-auto">
+      <Image
+        src={img.src}
+        alt={img.alt}
+        class="object-cover lg:h-full h-auto"
+      />
+    </figure>
+  </a>
+
+  <div class="story__content">
+    <div>
+      <h2 class="text-2xl mb-2 story__title mx-1">
+        <a href={slug}>
+          {h1}
+        </a>
+      </h2>
+      <div class="mb-2 lg:mb-3 my-4 md:my-8">
+        <ul
+          class="font-extrabold text-xl flex flex-wrap gap-4 justify-center list-none">
+          {
+            cat.map((item) => (
+              <li class="bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1">
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="text-lg mx-4 mb-8">
+        <PortableText value={abstract} />
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  /* --------------------------------
+
+File#: _1_article-preview
+Title: Article Preview
+Descr: Blog post excerpt, containing a link to the article page
+Usage: codyhouse.co/license
+
+-------------------------------- */
+  .story__img {
+    display: block;
+    transition: opacity 0.2s;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+  }
+  .story__img:hover {
+    opacity: 0.85;
+  }
+  .story__img img {
+    display: block;
+    width: 100%;
+  }
+
+  .story__category {
+    display: inline-flex;
+    align-items: center;
+    @apply text-gray-900;
+    line-height: 1;
+    text-decoration: none;
+    @apply text-sm lg:text-base;
+    @apply bg-indigo-700/20;
+    padding: 0.3rem 0.375rem;
+    @apply rounded;
+    transition: background-color 0.2s;
+  }
+  @media (min-width: 64rem) {
+    .story__category {
+      padding: 0.4rem 0.5625rem;
+    }
+  }
+  .story__category:hover {
+    text-decoration: underline;
+    @apply bg-indigo-700/30;
+  }
+
+  .story__title a {
+    text-decoration: none;
+  }
+  .story__title a:hover {
+    text-decoration: underline;
+  }
+
+  .story__meta {
+    @apply text-sm lg:text-base;
+    @apply text-gray-500;
+  }
+
+  @media (min-width: 64rem) {
+    .story--featured {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      grid-gap: 2rem;
+      align-items: center;
+    }
+    .story--featured .story__img {
+      margin: 0;
+    }
+  }
+  .story--featured .story__title {
+    @apply lg:text-3xl;
+  }
+</style>
