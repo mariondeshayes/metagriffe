@@ -83,7 +83,7 @@ article {
     @apply mt-16;
   }
 
-  & #content a {
+  & #content a:not(.normal) {
     @apply bg-[var(--accent1Color)] px-1;
   }
 
