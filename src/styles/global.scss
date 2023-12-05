@@ -21,6 +21,12 @@ html::-webkit-scrollbar {
   scrollbar-color: var(--accent1Color) var(--textColor);
 }
 
+.hide {
+  transition: opacity 0.3s, display 0.3s;
+  display: none;
+  opacity: 0;
+}
+
 .btn {
   @apply text-lg md:text-2xl whitespace-nowrap;
   background-color: var(--accent1Color);

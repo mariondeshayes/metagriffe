@@ -10,20 +10,22 @@ if(blogPosts && catBtn){
     btn.addEventListener("click", (event)=>{
       const targetCat = event.target.innerHTML;
       blogPosts.dataset.filter = targetCat;
-      filterDisplay.classList.remove('hidden');
+      filterDisplay.classList.remove('opacity-0');
       filterBtn.innerHTML = "x "+ targetCat;
       const articles = document.querySelectorAll("article.story");
-      articles.forEach((art)=>{
+      articles.forEach((art,index)=>{
         const listOfCatBtn = [...art.querySelectorAll(".catSelector")];
         const listOfTags = listOfCatBtn.map(el=>{return el.innerHTML});
         if(!listOfTags.includes(targetCat)){
-          art.classList.add('hidden');
+          if(index){
+            art.classList.add('hide');
+          }
         }
       })
     })
   })
 
-  //HANDLE THE FILTERING OF THE NEW CONTENT
+  //HANDLE THE FILTERING WHEN NEW CONTENT ARRIVES
   let infiniteScroll = document.getElementsByClassName('js-infinite-scroll')[0];
   infiniteScroll.addEventListener('content-loaded', function(event){
     // new content has been loaded
@@ -31,11 +33,13 @@ if(blogPosts && catBtn){
     const targetCat = blogPosts.dataset.filter;
     if(targetCat){
       const articles = document.querySelectorAll("article.story");
-      articles.forEach((art)=>{
+      articles.forEach((art,index)=>{
         const listOfCatBtn = [...art.querySelectorAll(".catSelector")];
         const listOfTags = listOfCatBtn.map(el=>{return el.innerHTML});
         if(!listOfTags.includes(targetCat)){
-          art.classList.add('hidden');
+          if(index){
+            art.classList.add('hide');
+          }
         }
       })
     }
@@ -44,28 +48,32 @@ if(blogPosts && catBtn){
   //HANDLE THE FILTER PASSED VIA URL PARAM
   const urlObj = new URLSearchParams(window.location.search);
   const targetCat = urlObj.get('filter');
-  console.log(targetCat)
   if(targetCat){
     blogPosts.dataset.filter = targetCat;
-    filterDisplay.classList.remove('hidden');
+    filterDisplay.classList.remove('opacity-0');
     filterBtn.innerHTML = "x "+ targetCat;
     const articles = document.querySelectorAll("article.story");
-    articles.forEach((art)=>{
+    articles.forEach((art,index)=>{
       const listOfCatBtn = [...art.querySelectorAll(".catSelector")];
       const listOfTags = listOfCatBtn.map(el=>{return el.innerHTML});
       if(!listOfTags.includes(targetCat)){
-        art.classList.add('hidden');
+        if(index){
+          art.classList.add('hide');
+        }
       }
     })
   }
 
   //REMOVE THE FILTER IF BTN PRESSED
   filterBtn.addEventListener('click',(event)=>{
-    filterDisplay.classList.add('hidden');
+    filterDisplay.classList.add('opacity-0');
     blogPosts.removeAttribute("filter");
+    window.history.replaceState({}, document.title, "/blog");
     const articles = document.querySelectorAll("article.story");
-    articles.forEach((art)=>{
-      art.classList.remove('hidden');
+    articles.forEach((art, index)=>{
+      if(index){
+        art.classList.remove('hide');
+      }
     })
   })
 }
