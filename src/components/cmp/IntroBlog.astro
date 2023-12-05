@@ -11,7 +11,16 @@ import Image from "../Image.astro";
     class="w-full h-[20vh] md:h-[30vh] object-cover"
   />
   <h1
-    class="px-4 md:pl-auto md:pr-4 pt-8 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto"
+    class="px-4 text-center md:pl-auto md:pr-4 pt-8 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto"
     set:html={data.h1}
   />
+  <ul class="font-extrabold text-xl flex gap-8 justify-center list-none">
+    {
+      data.cat.map((cat) => (
+        <li class="bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1">
+          {cat}
+        </li>
+      ))
+    }
+  </ul>
 </section>
