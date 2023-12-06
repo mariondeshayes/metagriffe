@@ -1,10 +1,10 @@
 const catBtn = document.querySelectorAll(".catSelector");
 const blogPosts = document.querySelector("#blogPosts");
-const filterDisplay = document.querySelector("#filter");
-const filterBtn = filterDisplay.querySelector("button");
 
 //CHECK IF WE ARE ON A BLOG PAGE
 if(blogPosts && catBtn){
+  const filterDisplay = document.querySelector("#filter");
+  const filterBtn = filterDisplay.querySelector("button");
   //HANDLE THE FILTERING BASED ON CAT BTN
   catBtn.forEach(btn => {
     btn.addEventListener("click", (event)=>{
