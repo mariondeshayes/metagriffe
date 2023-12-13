@@ -11,6 +11,31 @@ export default {
   ],
   fields: [
     {
+      name: 'redirects',
+      type: 'array',
+      title: 'Redirections',
+      of: [
+        {
+          name: 'redirect',
+          type: 'object',
+          title: 'Redirection',
+          fields: [
+            {name: 'from', title: 'Depuis', type: 'string'},
+            {name: 'to', title: "Jusqu'à", type: 'string'},
+            {name: 'code', title: 'Code de Statut', type: 'string', description: '301 par défaut'},
+            {
+              name: 'force',
+              title: 'Force',
+              type: 'boolean',
+              description: "forcer la redirection d'une page qui existe",
+              initialValue: false,
+            },
+          ],
+        },
+      ],
+      group: 'seo',
+    },
+    {
       name: 'cat',
       type: 'array',
       title: 'Catégories des articles de blog',
