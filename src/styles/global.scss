@@ -1,7 +1,7 @@
 body {
   background-color: var(--bgColor);
   color: var(--textColor);
-  @apply max-w-[1400px] mx-auto border-4 border-[var(--textColor)];
+  @apply max-w-[1536px] mx-auto 2xl:border-r-4 2xl:border-l-4 2xl:border-[var(--textColor)];
 }
 
 html {

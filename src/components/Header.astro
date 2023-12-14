@@ -80,7 +80,7 @@ let data = await fetch(URLQUERY)
                       }>
                       <span>{el.nom}</span>
                       <svg
-                        class="f-header__dropdown-icon icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+                        class="f-header__dropdown-icon icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
                         aria-hidden="true"
                         viewBox="0 0 12 12">
                         <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z" />
@@ -125,7 +125,7 @@ let data = await fetch(URLQUERY)
                     <div class="f-header__notlink">
                       <span>{el.nom}</span>
                       <svg
-                        class="f-header__dropdown-icon icon h-[12px] w-[12px] inline-block text-inherit fill-current leading-none shrink-0"
+                        class="f-header__dropdown-icon icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
                         aria-hidden="true"
                         viewBox="0 0 12 12">
                         <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z" />
@@ -327,12 +327,12 @@ let data = await fetch(URLQUERY)
   Usage: codyhouse.co/license
   -------------------------------- */
   :root {
-    --f-header-height: 60px;
+    --f-header-height: 100px;
     --f-header-logo-width: 100px;
   }
   @media (min-width: 64rem) {
     :root {
-      --f-header-height: 60px;
+      --f-header-height: 100px;
     }
   }
 
@@ -369,8 +369,10 @@ let data = await fetch(URLQUERY)
   }
 
   .f-header__logo {
-    display: block;
-    width: var(--f-header-logo-width);
+    display: flex;
+    height: 100%;
+    padding-block: 0.75rem;
+    width: auto;
     flex-shrink: 0;
     text-decoration: none;
   }
@@ -575,7 +577,7 @@ let data = await fetch(URLQUERY)
     .f-header__dropdown-link,
     .f-header__btn,
     .f-header__form-control {
-      font-size: 1.125rem;
+      font-size: 1.8rem;
     }
 
     .f-header__link,

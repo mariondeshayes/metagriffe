@@ -1,5 +1,5 @@
 const query = encodeURIComponent('*[_type == "global"]{cat}')
-const url = `https://dtm1se4w.api.sanity.io/v2021-10-21/data/query/production?query=${query}`
+const url = `https://5b9ejyv9.api.sanity.io/v2021-10-21/data/query/production?query=${query}`
 // fetch the content
 
 const data = await fetch(url)
