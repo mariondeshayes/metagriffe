@@ -11,9 +11,9 @@ const singletonTypes = new Set(['global'])
 
 export default defineConfig({
   name: 'default',
-  title: 'template-writer',
+  title: 'vitrine-blog-brutalism-2023',
 
-  projectId: 'dtm1se4w',
+  projectId: '5b9ejyv9',
   dataset: 'production',
 
   plugins: [
