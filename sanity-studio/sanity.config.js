@@ -13,8 +13,8 @@ export default defineConfig({
   name: 'default',
   title: 'vitrine-blog-brutalism-2023',
 
-  projectId: '5b9ejyv9',
-  dataset: 'production',
+  projectId: `${process.env.SANITY_STUDIO_PROJECT_ID}`,
+  dataset: `${process.env.SANITY_STUDIO_DATASET}`,
 
   plugins: [
     colorInput(),
