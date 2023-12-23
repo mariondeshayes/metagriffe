@@ -7,16 +7,21 @@ const { node } = Astro.props;
   class="px-4 flex justify-center items-start gap-8 flex-col xl:flex-row pb-8 border-b-4 border-[var(--textColor)]">
   <div class="w-full xl:max-w-[35%] pt-16">
     <h2
-      class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto"
+      class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate"
+      data-anim="fadeInLeft"
       set:html={node.h2}
     />
   </div>
   <ol
     class="list-decimal list-inside flex flex-col md:flex-row w-full xl:w-[65%]">
     {
-      node.etapes.map((etape) => {
+      node.etapes.map((etape, i) => {
         return (
-          <li class={`md:w-1/${node.etapes.length}`}>
+          <li
+            class={`md:w-1/${node.etapes.length} animate ${
+              i == 0 ? "" : `animDelayx${i}`
+            }`}
+            data-anim="fadeInRight">
             <h3 set:html={etape.h3} />
             <div>
               <PortableText value={etape.text} />

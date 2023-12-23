@@ -28,7 +28,8 @@ const { node } = Astro.props;
       {
         node.h3 && (
           <h3
-            class="text-xl sm:text-3xl md:text-4xl xl:text-6xl my-4 font-extrabold"
+            class="text-xl sm:text-3xl md:text-4xl xl:text-6xl my-4 font-extrabold animate"
+            data-anim="fadeInDown"
             set:html={node.h3}
           />
         )
@@ -36,7 +37,9 @@ const { node } = Astro.props;
       <div>
         {
           node.text && (
-            <div class="text-base md:text-lg xl:text-2xl font-normal mb-8">
+            <div
+              class="text-base md:text-lg xl:text-2xl font-normal mb-8 animate"
+              data-anim="fadeInUp">
               <PortableText value={node.text} />
             </div>
           )
@@ -44,7 +47,8 @@ const { node } = Astro.props;
         {
           node.href && (
             <a
-              class="btn border hover:border hover:border-[var(--textColor)]"
+              class="btn border hover:border hover:border-[var(--textColor)] animate animDelay1x"
+              data-anim="fadeInUp"
               href={node.href}>
               {node.ancre}
             </a>

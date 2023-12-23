@@ -8,20 +8,24 @@ const { node } = Astro.props;
   <div
     class="flex-0 w-full lg:w-3/5 frame px-4 border-b-4 lg:border-b-0 lg:border-r-4 border-[var(--textColor)] bg-[var(--accent1Color)] text-[var(--textColor)] py-8">
     <h2
-      class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto"
+      class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate"
+      data-anim="fadeInLeft"
       set:html={node.h2}
     />
   </div>
   <div class="flex-0 w-full lg:w-2/5 z-10 flex flex-col p-4">
     {
       node.text && (
-        <div class="text-lg sm:text-xl md:text-2xl xl:text-3xl mb-8 font-extrabold">
+        <div
+          class="text-lg sm:text-xl md:text-2xl xl:text-3xl mb-8 font-extrabold animate"
+          data-anim="fadeInRight">
           <PortableText value={node.text} />
         </div>
       )
     }
     <a
-      class="btn border hover:border hover:border-[var(--textColor)] w-fit"
+      class="btn border hover:border hover:border-[var(--textColor)] w-fit animate animDelayx1"
+      data-anim="fadeInRight"
       href={node.btn.href}>
       {node.btn.ancre}
     </a>

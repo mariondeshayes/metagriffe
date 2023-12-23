@@ -9,11 +9,14 @@ const { node } = Astro.props;
   <div class="flex-0 w-full md:w-1/2 z-10">
     <h1
       set:html={node.h1}
-      class="px-4 text-2xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4"
+      class="px-4 text-2xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 animate"
+      data-anim="fadeInLeft"
     />
     {
       node.p && (
-        <div class="px-4 text-base md:text-lg xl:text-2xl font-normal mb-8">
+        <div
+          class="px-4 text-base md:text-lg xl:text-2xl font-normal mb-8 animate animDelay1x"
+          data-anim="fadeInLeft">
           <PortableText value={node.p} />
         </div>
       )
@@ -21,7 +24,8 @@ const { node } = Astro.props;
     {
       node.btn && (
         <a
-          class="btn border mx-4 hover:border hover:border-[var(--textColor)]"
+          class="btn border mx-4 hover:border hover:border-[var(--textColor)] animate animDelay1x"
+          data-anim="fadeInLeft"
           href={node.btn.href}>
           {node.btn.ancre}
         </a>

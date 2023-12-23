@@ -8,8 +8,9 @@ const { node } = Astro.props;
     {
       node.h2 && (
         <h2
-          class="mt-16 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase w-fit mx-4 md:mr-auto md:ml-4 border-t-4 border-[var(--textColor)] pt-2"
+          class="animate mt-16 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase w-fit mx-4 md:mr-auto md:ml-4 border-t-4 border-[var(--textColor)] pt-2"
           set:html={node.h2}
+          data-anim="fadeInLeft"
         />
       )
     }
@@ -20,8 +21,12 @@ const { node } = Astro.props;
     data-animation="on"
     data-multi-items="on">
     {
-      node.questions.map((el) => (
-        <li class="accordion__item js-accordion__item">
+      node.questions.map((el, i) => (
+        <li
+          class={`accordion__item js-accordion__item animate ${
+            i == 0 ? "" : `animDelay${i}x`
+          }`}
+          data-anim="fadeInRight">
           <button
             class="accordion__header py-3 lg:py-5 px-5 lg:px-8 js-tab-focus"
             type="button">
