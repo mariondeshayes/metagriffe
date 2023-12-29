@@ -105,13 +105,14 @@ export default {
     },
     {
       name: 'titleExtension',
-      title: 'À ajouter à la fin de la balise "title"',
+      title:
+        'À ajouter à la fin de la balise "title". Laisser vide si vous ne voulez pas insérer le nom de votre site dans les titles',
       type: 'string',
       group: 'seo',
     },
     {
       name: 'ogImageFallback',
-      title: 'image OG utilisée par défaut',
+      title: 'Image utilisée par défaut lors du partage sur les réseaux sociaux.',
       type: 'image',
       group: 'seo',
     },

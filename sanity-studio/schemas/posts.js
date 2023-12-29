@@ -43,7 +43,7 @@ export default {
       name: 'h1',
       type: 'string',
       title: "H1 de l'article",
-      description: "Sera affiché dans la carte de l'article sur la page blog",
+      description: "Sera affichée dans la carte de l'article sur la page blog",
       validation: (Rule) => Rule.required().warning('Le h1 de la page est obligatoire'),
     },
     {
@@ -104,13 +104,13 @@ export default {
     },
     {
       name: 'mailObject',
-      title: "L'object du mail",
+      title: "L'object de l'email",
       group: 'networks',
       type: 'string',
     },
     {
       name: 'mailBody',
-      title: 'Le corps du mail',
+      title: "Le corps de l'email",
       group: 'networks',
       type: 'text',
     },
@@ -119,22 +119,24 @@ export default {
       type: 'string',
       title: 'Title',
       group: 'seo',
-      description: '"- Architéa" sera rajouté à la fin du title',
+      description:
+        ' - MonSiteWeb sera ajouté à la fin du title si vous avez renseigné ce champ dans "Global"',
       validation: (Rule) => Rule.required().warning('Le title est obligatoire'),
     },
     {
       name: 'description',
       type: 'string',
-      title: 'Description',
+      title: 'Metadescription',
       group: 'seo',
-      validation: (Rule) => Rule.required().warning('La description est obligatoire'),
+      validation: (Rule) => Rule.required().warning('La metadescription est obligatoire'),
     },
     {
       name: 'slug',
       type: 'string',
       title: 'Slug de la page',
-      description: "L'URL après https://www.monsiteweb.fr/",
+      description: "L'URL après https://www.monsiteweb.fr/. Ne pas commencer par /",
       group: 'seo',
+      validation: (Rule) => Rule.regex(/^(?:(?!\/))[a-z0-9-\/]+$/, {name: 'slug', invert: false}),
     },
     {
       name: 'robots',
@@ -153,7 +155,7 @@ export default {
     {
       name: 'ogimage',
       type: 'image',
-      title: 'OpenGraph Image',
+      title: "OpenGraph Image. Si vide, l'image renseignée dans Global sera utilisée",
       description: '1200x630 px',
       group: 'seo',
     },
@@ -162,6 +164,8 @@ export default {
       type: 'text',
       title: 'Schema',
       group: 'seo',
+      description:
+        'Ne pas copier la balise <script type="application/ld+json"> et </script> mais seulement le contenu avec les accolades',
     },
     {
       name: 'content',
