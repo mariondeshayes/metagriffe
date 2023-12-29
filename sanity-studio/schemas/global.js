@@ -46,6 +46,7 @@ export default {
       name: 'networks',
       type: 'array',
       title: 'Réseaux sociaux',
+      description: 'Téléverser une image svg',
       group: 'social',
       of: [
         {
@@ -55,7 +56,14 @@ export default {
           fields: [
             {name: 'nom', type: 'string', title: 'Nom du réseau social'},
             {name: 'url', type: 'string', title: 'URL du lien'},
-            {name: 'svg', type: 'image', title: 'Icone'},
+            {
+              name: 'svg',
+              type: 'image',
+              title: 'Icone',
+              options: {
+                accept: 'image/svg+xml',
+              },
+            },
           ],
         },
       ],
@@ -72,6 +80,7 @@ export default {
       name: 'textColor',
       group: 'theme',
       title: 'Couleur du texte',
+      description: 'Pour les paragraphes et titres Hn',
     },
     {
       type: 'color',
@@ -84,13 +93,15 @@ export default {
       name: 'accent1Color',
       group: 'theme',
       title: 'Couleur accentuation',
+      description: 'Appliquée à différents éléments du site dont le fond du CTA',
     },
     {
       type: 'text',
       name: 'font',
       group: 'theme',
       title: 'Typographie',
-      description: 'copier ici le CSS de fontsource.org',
+      description:
+        'copier ici le CSS de fontsource.org. La première police de caractères servira pour le corps du texte. La deuxième pour les titres.',
     },
     {
       name: 'titleExtension',
