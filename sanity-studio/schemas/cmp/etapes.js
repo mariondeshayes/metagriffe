@@ -15,10 +15,25 @@ export default {
   },
   fields: [
     {
-      name: 'h2',
-      title: 'H2',
+      name: 'lvl',
+      title: 'Niveau du titre',
       type: 'string',
-      validation: (Rule) => Rule.required().warning('Le H2 est obligatoire'),
+      options: {
+        list: [
+          {title: 'H1', value: 'h1'},
+          {title: 'H2', value: 'h2'},
+          {title: 'H3', value: 'h3'},
+          {title: 'H4', value: 'h4'},
+          {title: 'H5', value: 'h5'},
+          {title: 'H6', value: 'h6'},
+          {title: 'p', value: 'p'},
+        ],
+      },
+    },
+    {
+      name: 'titre',
+      title: 'Titre',
+      type: 'string',
     },
     {
       name: 'etapes',
@@ -44,6 +59,8 @@ export default {
           ],
         },
       ],
+      validation: (Rule) =>
+        Rule.required().max(4).warning("Le nombre d'étapes doit être compris entre 1 et 4."),
     },
   ],
 }
