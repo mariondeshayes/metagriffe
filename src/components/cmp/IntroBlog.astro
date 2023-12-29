@@ -8,16 +8,21 @@ import Image from "../Image.astro";
   <Image
     src={data.img.src}
     alt={data.img.alt}
-    class="w-full h-[20vh] md:h-[30vh] object-cover"
+    class="w-full h-[20vh] md:h-[30vh] object-cover fadeIn"
   />
   <h1
-    class="px-4 text-center md:pl-auto md:pr-4 pt-8 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto"
+    class="px-4 text-center md:pl-auto md:pr-4 pt-8 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate"
+    data-anim="fadeInLeft"
     set:html={data.h1}
   />
   <ul class="font-extrabold text-xl flex gap-8 justify-center list-none">
     {
-      data.cat.map((item) => (
-        <li class="bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1">
+      data.cat.map((item, i) => (
+        <li
+          class={`bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1 animate ${
+            i == 0 ? "" : `animDelayx${i}`
+          }`}
+          data-anim="fadeInRight">
           <a href={`/blog/?filter=${item}`}>{item}</a>
         </li>
       ))

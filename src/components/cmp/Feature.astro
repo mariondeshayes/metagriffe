@@ -16,7 +16,7 @@ const { node } = Astro.props;
   }
   <div
     class="feature-content flex items-stretch justify-center gap-4 mt-16 md:mr-0 border-b-4 border-[var(--textColor)]">
-    <div class="flex-0 w-full md:w-2/5 frame">
+    <div class="flex-0 w-full md:w-2/5 frame animate" data-anim="fadeIn">
       <Image
         src={node.img.src}
         alt={node.img.alt}

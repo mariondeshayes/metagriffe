@@ -9,7 +9,8 @@ const { node } = Astro.props;
   {
     node.h2 && (
       <h2
-        class="mt-16 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase w-fit mx-4 md:ml-auto md:mr-4 border-t-4 border-[var(--textColor)] pt-2"
+        class="animate mt-16 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase w-fit mx-4 md:ml-auto md:mr-4 border-t-4 border-[var(--textColor)] pt-2"
+        data-anim="fadeInLeft"
         set:html={node.h2}
       />
     )
@@ -20,7 +21,7 @@ const { node } = Astro.props;
         <a
           href={`/${service.href}`}
           class="service-item w-full md:border-t-2 py-16 border-[var(--textColor)] flex flex-col md:grid md:grid-cols-12">
-          <div class="col-span-4 h-72">
+          <div class="col-span-4 h-72 animate" data-anim="fadeIn">
             <Image
               src={service.img.src}
               alt={service.img.alt}
@@ -30,10 +31,11 @@ const { node } = Astro.props;
           </div>
           <div class="col-span-6 flex flex-col justify-between px-4">
             <h3
-              class="text-xl uppercase font-extrabold my-4"
+              class="text-xl uppercase font-extrabold my-4 animate"
+              data-anim="fadeInLeft"
               set:html={service.h3}
             />
-            <div>
+            <div class="animate" data-anim="fadeInRight">
               <PortableText value={service.text} />
               <p class="my-4 btn border hover:border hover:border-[var(--textColor)]">
                 {service.ancre}

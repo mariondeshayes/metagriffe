@@ -8,7 +8,7 @@ const { node } = Astro.props;
   <div
     class="flex-0 w-full lg:w-3/5 frame px-4 border-b-4 lg:border-b-0 lg:border-r-4 border-[var(--textColor)] bg-[var(--accent1Color)] text-[var(--textColor)] py-8">
     <h2
-      class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate"
+      class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate toBeFadedInLeft"
       data-anim="fadeInLeft"
       set:html={node.h2}
     />
@@ -17,7 +17,7 @@ const { node } = Astro.props;
     {
       node.text && (
         <div
-          class="text-lg sm:text-xl md:text-2xl xl:text-3xl mb-8 font-extrabold animate"
+          class="text-lg sm:text-xl md:text-2xl xl:text-3xl mb-8 font-extrabold animate "
           data-anim="fadeInRight">
           <PortableText value={node.text} />
         </div>

@@ -13,7 +13,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site);
     </div>
 
     <ul class="sharebar flex flex-wrap gap-2 lg:gap-3 justify-center list-none">
-      <li>
+      <li class="animate" data-anim="fadeInRight">
         <a
           class="sharebar__btn js-social-share"
           data-social="twitter"
@@ -35,7 +35,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site);
         </a>
       </li>
 
-      <li>
+      <li class="animate animDelayx1" data-anim="fadeInRight">
         <a
           class="sharebar__btn js-social-share"
           data-social="facebook"
@@ -51,7 +51,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site);
         </a>
       </li>
 
-      <li>
+      <li class="animate animDelayx2" data-anim="fadeInRight">
         <a
           class="sharebar__btn js-social-share"
           data-social="pinterest"
@@ -71,7 +71,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site);
         </a>
       </li>
 
-      <li>
+      <li class="animate animDelayx3" data-anim="fadeInRight">
         <a
           class="sharebar__btn js-social-share"
           data-social="linkedin"
@@ -89,7 +89,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site);
         </a>
       </li>
 
-      <li>
+      <li class="animate animDelayx4" data-anim="fadeInRight">
         <a
           class="sharebar__btn js-social-share"
           data-social="mail"

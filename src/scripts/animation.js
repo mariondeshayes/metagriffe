@@ -4,12 +4,13 @@ const targets = document.querySelectorAll(".animate");
 const callback = (entries, observer) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
+      entry.target.classList.add("opacity-100");
       entry.target.classList.add(entry.target.dataset.anim);
       return;
     }
   });
 };
-const options = { root: null, threshold: 0.1 };
+const options = { root: null, threshold: 0.5 };
 
 window.addEventListener("load", function () {
   const myObserver = new IntersectionObserver(callback, options);
