@@ -17,10 +17,17 @@ let data = await fetch(URL)
   })
   .catch((err) => console.error(err));
 
-//Get the name of the font
-let fontFamily = data.font.split("font-family: ")[1].split(";")[0];
+//Get the names of the fonts
+let tmp = data.font.split("font-family: ");
+tmp.shift();
+let fontFamilies = [];
+for (let i = 0; i < tmp.length; i++) {
+  fontFamilies.push(tmp[i].split(";")[0]);
+}
+
 //Generate the css
-let css = `body{font-family: ${fontFamily}}`;
+let css = `body{font-family: ${fontFamilies[0]}}\n`;
+css += `h1,h2,h3,h4,h5,h6{font-family: ${fontFamilies[1]}}`;
 ---
 
 <style set:html={data.font}></style>
