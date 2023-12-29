@@ -1,17 +1,24 @@
 ---
 import { PortableText } from "astro-portabletext";
+import HN from "../HN.astro";
+
 const { node } = Astro.props;
 ---
 
 <section
   class="px-4 flex justify-center items-start gap-8 flex-col xl:flex-row pb-8 border-b-4 border-[var(--textColor)]">
-  <div class="w-full xl:max-w-[35%] pt-16">
-    <h2
-      class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate"
-      data-anim="fadeInLeft"
-      set:html={node.h2}
-    />
-  </div>
+  {
+    node.titre && (
+      <div class="w-full xl:max-w-[35%] pt-16">
+        <HN
+          class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate"
+          anim="fadeInLeft"
+          content={node.titre}
+          Level={node.lvl}
+        />
+      </div>
+    )
+  }
   <ol
     class="list-decimal list-inside flex flex-col md:flex-row w-full xl:w-[65%]">
     {

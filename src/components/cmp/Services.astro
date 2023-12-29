@@ -1,17 +1,20 @@
 ---
 import { PortableText } from "astro-portabletext";
 import Image from "../Image.astro";
+import HN from "../HN.astro";
+
 const { node } = Astro.props;
 ---
 
 <section class="w-full border-y-4 border-[var(--textColor)]">
   <!-- <hr class="small-separator mb-8" /> -->
   {
-    node.h2 && (
-      <h2
+    node.titre && (
+      <HN
         class="animate mt-16 text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase w-fit mx-4 md:ml-auto md:mr-4 border-t-4 border-[var(--textColor)] pt-2"
-        data-anim="fadeInLeft"
-        set:html={node.h2}
+        anim="fadeInLeft"
+        content={node.titre}
+        Level={node.lvl}
       />
     )
   }

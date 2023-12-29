@@ -1,0 +1,6 @@
+---
+const { class: classList, content, anim, Level = "p" } = Astro.props;
+---
+
+{anim && <Level class={classList} data-anim={anim} set:html={content} />}
+{!anim && <Level class={classList} set:html={content} />}
