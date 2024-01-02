@@ -84,53 +84,49 @@ if (data.favtouch) {
   //fetch the content of the favicon
   let tmp = await fetch(`${data.favtouch}?dl=`)
     .then((res) => res.blob())
-    .then((blob) => {
-      return blob;
+    .then(async function(blob) {
+      var buffer = await blob.arrayBuffer();
+      buffer = Buffer.from(buffer)
+      fs.createWriteStream("dist/favicon/apple-touch-icon.png").write(buffer);
+      console.log("iOS créé");
     })
     .catch((err) => console.error(err));
-  fs.appendFile("dist/favicon/apple-touch-icon.png", tmp, (err) => {
-    if (err) throw err;
-    console.log(`Favicon iOS ajouté`);
-  });
 }
 if (data.fav16) {
   //fetch the content of the favicon
   let tmp = await fetch(`${data.fav16}?dl=`)
     .then((res) => res.blob())
-    .then((blob) => {
-      return blob;
+    .then(async function(blob) {
+      var buffer = await blob.arrayBuffer();
+      buffer = Buffer.from(buffer)
+      fs.createWriteStream("dist/favicon/favicon-16x16.png").write(buffer);
+      console.log("favicon 16x16 créé");
     })
     .catch((err) => console.error(err));
-  fs.appendFile("dist/favicon/favicon-16x16.png", tmp, (err) => {
-    if (err) throw err;
-    console.log(`Favicon 16x16 ajouté`);
-  });
 }
 if (data.fav32) {
   //fetch the content of the favicon
   let tmp = await fetch(`${data.fav32}?dl=`)
     .then((res) => res.blob())
-    .then((blob) => {
-      return blob;
+    .then(async function(blob) {
+      var buffer = await blob.arrayBuffer();
+      buffer = Buffer.from(buffer)
+      fs.createWriteStream("dist/favicon/favicon-32x32.png").write(buffer);
+      console.log("favicon 32x32 créé");
     })
     .catch((err) => console.error(err));
-  fs.appendFile("dist/favicon/favicon-32x32.png", tmp, (err) => {
-    if (err) throw err;
-    console.log(`Favicon 32x32 ajouté`);
-  });
 }
 if (data.favchrome) {
   //fetch the content of the favicon
   let tmp = await fetch(`${data.favchrome}?dl=`)
     .then((res) => res.blob())
-    .then((blob) => {
-      return blob;
+    .then(async function(blob) {
+      var buffer = await blob.arrayBuffer();
+      buffer = Buffer.from(buffer)
+      fs.createWriteStream("dist/favicon/android-chrome-512x512.png").write(buffer);
+      console.log("favicon chrome créé");
     })
     .catch((err) => console.error(err));
-  fs.appendFile("dist/favicon/android-chrome-512x512.png", tmp, (err) => {
-    if (err) throw err;
-    console.log(`Favicon chrome ajouté`);
-  });
 }
 
 //GENERATE THE MANIFEST
