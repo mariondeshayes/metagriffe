@@ -149,7 +149,7 @@ manifest.theme_color = data.accentColor;
 manifest.background_color = data.bgColor;
 manifest.display = "standalone";
 
-fs.appendFile("dist/favicon/site.webmanifest", JSON.stringify(manifest), (err) => {
+fs.appendFile("dist/favicon/site.webmanifest", JSON.stringify(manifest,null,2), (err) => {
   if (err) throw err;
   console.log(`Manifest ajouté`);
 });
