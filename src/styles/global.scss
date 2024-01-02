@@ -91,7 +91,7 @@ article {
   }
 
   & #content a:not(.normal) {
-    @apply bg-[var(--accent1Color)] px-1;
+    @apply underline decoration-double decoration-2 decoration-[var(--accent1Color)] underline-offset-1 hover:bg-[var(--accent1Color)] hover:decoration-[var(--textColor)] px-1;
   }
 
   & h2 {
