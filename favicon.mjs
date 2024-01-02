@@ -140,7 +140,7 @@ manifest.name = name;
 manifest.short_name = name;
 manifest.icons = [
   {
-    "src": "/android-chrome-512x512.png",
+    "src": "/favicon/android-chrome-512x512.png",
     "sizes": "512x512",
     "type": "image/png"
   }
