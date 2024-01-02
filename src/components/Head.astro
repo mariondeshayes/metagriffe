@@ -52,16 +52,43 @@ if (seo.canonical === null) {
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content={import.meta.env.PUBLIC_SITENAME} />
   <meta property="og:image" content={seo.ogimage || data.ogImageFallback} />
-  <!-- 🎅 // Favicon need more control too -->
-  <link rel="icon" href="favicon.svg" />
+
+  <!-- 🎅 // Favicons -->
+  <!-- normal SVG favicon -->
+  <link rel="icon" href="/favicon/favicon.svg" />
+  <!-- mask icon for pinned tab on Safari -->
+  <link
+    rel="mask-icon"
+    href="/favicon/mask-icon.svg"
+    color={data.themeColor.hex}
+  />
+  <!-- Touch icon -->
+  <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+  <!-- Old favicon sizes for compat -->
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/favicon/favicon-32x32.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/favicon/favicon-16x16.png"
+  />
+  <!-- manifest -->
+  <link rel="manifest" href="/favicon/site.webmanifest" />
+
   <!-- 🎅 // Schema.org -->
   {seo.schema && <script type="application/ld+json" set:html={seo.schema} />}
+
   <!-- scripts -->
   <script src="../scripts/cat.js"></script>
   <script src="../scripts/animation.js"></script>
   <script
     data-goatcounter="https://vitrine-blog-brutalism-2023.goatcounter.com/count"
     async
-    src="//gc.zgo.at/count.js">
-  </script>
+    src="//gc.zgo.at/count.js"
+  ></script>
 </head>

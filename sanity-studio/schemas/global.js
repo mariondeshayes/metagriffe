@@ -101,7 +101,76 @@ export default {
       group: 'theme',
       title: 'Typographie',
       description:
-        'copier ici le CSS de fontsource.org. La première police de caractères servira pour le corps du texte. La deuxième pour les titres.',
+        'copier ici le CSS de fontsource.org. Si 2 polices de caractères, la première servira pour le corps du texte et la deuxième pour les titres.',
+    },
+    {
+      name: 'favSVG',
+      title: 'favicon SVG',
+      type: 'image',
+      group: 'theme',
+      options: {
+        accept: 'image/svg+xml',
+      },
+    },
+    {
+      name: 'favmask',
+      title: 'favicon Safari Pinned Tab',
+      description: 'Le SVG doit être noir sur un fond transparent',
+      type: 'image',
+      group: 'theme',
+      options: {
+        accept: 'image/svg+xml',
+      },
+    },
+    {
+      name: 'favtouch',
+      title: 'favicon pour iOS',
+      description: 'PNG de 180x180',
+      type: 'image',
+      group: 'theme',
+      options: {
+        accept: 'image/png',
+      },
+    },
+    {
+      name: 'fav16',
+      title: 'favicon 16x16 / anciens navigateurs',
+      description: 'PNG de 16x16',
+      type: 'image',
+      group: 'theme',
+      options: {
+        accept: 'image/png',
+      },
+    },
+    {
+      name: 'fav32',
+      title: 'favicon 32x32 / anciens navigateurs',
+      description: 'PNG de 32x32',
+      type: 'image',
+      group: 'theme',
+      options: {
+        accept: 'image/png',
+      },
+    },
+    {
+      name: 'favico',
+      title: 'favicon format ico / anciens navigateurs',
+      description: 'ico 32x32',
+      type: 'file',
+      group: 'theme',
+      options: {
+        accept: '.ico',
+      },
+    },
+    {
+      name: 'favchrome',
+      title: 'favicon pour le manifest PWA',
+      description: 'PNG de 512x512',
+      type: 'image',
+      group: 'theme',
+      options: {
+        accept: 'image/png',
+      },
     },
     {
       name: 'titleExtension',
