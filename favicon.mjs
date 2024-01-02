@@ -13,6 +13,7 @@ QUERY = encodeURIComponent(`
   'fav16': fav16.asset->url,
   'fav32': fav32.asset->url,
   'favico': favico.asset->url,
+  'favchrome': favchrome.asset->url,
   "accentColor": accent1Color.hex,
   "textColor": textColor.hex,
   "bgColor": bgColor.hex,
