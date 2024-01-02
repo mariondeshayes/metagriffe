@@ -53,7 +53,7 @@ if (seo.canonical === null) {
   <meta property="og:site_name" content={import.meta.env.PUBLIC_SITENAME} />
   <meta property="og:image" content={seo.ogimage || data.ogImageFallback} />
   <!-- 🎅 // Favicon need more control too -->
-  <link rel="icon" type="image/png" href="/favicon/favicon.png" />
+  <link rel="icon" href="favicon.svg" />
   <!-- 🎅 // Schema.org -->
   {seo.schema && <script type="application/ld+json" set:html={seo.schema} />}
   <!-- scripts -->
