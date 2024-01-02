@@ -4,8 +4,6 @@ import { PortableText } from "astro-portabletext";
 import HN from "../HN.astro";
 
 const { node } = Astro.props;
-
-console.log(node);
 ---
 
 <section
@@ -41,7 +39,7 @@ console.log(node);
     <Image
       src={node.img.src}
       alt={node.img.alt}
-      loading="eager"
+      loading={node.img.eager ? "eager" : "lazy"}
       sizes="(min-width: 768px) 50vw, 100vw"
     />
   </div>

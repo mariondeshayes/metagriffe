@@ -25,6 +25,7 @@ const { node } = Astro.props;
         src={node.img.src}
         alt={node.img.alt}
         class="h-[350px] md:h-[700px] object-cover"
+        loading={node.img.eager ? "eager" : "lazy"}
       />
     </div>
     <div

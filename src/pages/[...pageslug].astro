@@ -70,6 +70,17 @@ export async function getStaticPaths() {
 const { pageslug } = Astro.params;
 console.log(pageslug);
 const { seo, content } = Astro.props;
+
+//ADD EAGER LOADING TO FIRST IMAGE
+let eager = 0;
+for (let i = 0; i < content.length; i++) {
+  if (!eager) {
+    if ("img" in content[i]) {
+      eager = 1;
+      content[i].img.eager = true;
+    }
+  }
+}
 ---
 
 <!doctype html>

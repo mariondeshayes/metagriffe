@@ -30,6 +30,7 @@ const { node } = Astro.props;
               alt={service.img.alt}
               class="h-full object-cover"
               sizes="(min-width: 768px) 33vw, 100vw"
+              loading={node.img.eager ? "eager" : "lazy"}
             />
           </div>
           <div class="col-span-6 flex flex-col justify-between px-4">
