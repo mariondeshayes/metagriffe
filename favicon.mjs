@@ -83,9 +83,9 @@ if (data.favmask) {
 if (data.favtouch) {
   //fetch the content of the favicon
   let tmp = await fetch(`${data.favtouch}?dl=`)
-    .then((res) => res.text())
-    .then((text) => {
-      return text;
+    .then((res) => res.blob())
+    .then((blob) => {
+      return blob;
     })
     .catch((err) => console.error(err));
   fs.appendFile("dist/favicon/apple-touch-icon.png", tmp, (err) => {
@@ -96,9 +96,9 @@ if (data.favtouch) {
 if (data.fav16) {
   //fetch the content of the favicon
   let tmp = await fetch(`${data.fav16}?dl=`)
-    .then((res) => res.text())
-    .then((text) => {
-      return text;
+    .then((res) => res.blob())
+    .then((blob) => {
+      return blob;
     })
     .catch((err) => console.error(err));
   fs.appendFile("dist/favicon/favicon-16x16.png", tmp, (err) => {
@@ -109,9 +109,9 @@ if (data.fav16) {
 if (data.fav32) {
   //fetch the content of the favicon
   let tmp = await fetch(`${data.fav32}?dl=`)
-    .then((res) => res.text())
-    .then((text) => {
-      return text;
+    .then((res) => res.blob())
+    .then((blob) => {
+      return blob;
     })
     .catch((err) => console.error(err));
   fs.appendFile("dist/favicon/favicon-32x32.png", tmp, (err) => {
@@ -122,9 +122,9 @@ if (data.fav32) {
 if (data.favchrome) {
   //fetch the content of the favicon
   let tmp = await fetch(`${data.favchrome}?dl=`)
-    .then((res) => res.text())
-    .then((text) => {
-      return text;
+    .then((res) => res.blob())
+    .then((blob) => {
+      return blob;
     })
     .catch((err) => console.error(err));
   fs.appendFile("dist/favicon/android-chrome-512x512.png", tmp, (err) => {
