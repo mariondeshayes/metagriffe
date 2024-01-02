@@ -3,6 +3,8 @@ import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
 import {colorInput} from '@sanity/color-input'
+import {netlifyWidget} from 'sanity-plugin-dashboard-widget-netlify'
+import {dashboardTool} from '@sanity/dashboard'
 
 // Define the actions that should be available for singleton documents
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -41,12 +43,29 @@ export default defineConfig({
     }),
     ,
     visionTool(),
+    dashboardTool({
+      widgets: [
+        netlifyWidget({
+          title: 'Déployer sur Netlify',
+          sites: [
+            {
+              title: 'Website',
+              apiId: '915176c4-f630-4386-828b-d765959cd3fa',
+              buildHookId: '65946c08e1f7890b17f1d149',
+              name: 'startling-blini-306276',
+              url: 'https://startling-blini-306276.netlify.app',
+            },
+          ],
+        }),
+      ],
+    }),
   ],
 
   schema: {
     types: schemaTypes,
     // Filter out singleton types from the global “New document” menu options
-    templates: (templates) => templates.filter(({schemaType}) => !singletonTypes.has(schemaType)),
+    templates: (templates) =>
+      templates.filter(({schemaType}) => schemaType == 'page' || schemaType == 'post'),
   },
   document: {
     // For singleton types, filter out actions that are not explicitly included

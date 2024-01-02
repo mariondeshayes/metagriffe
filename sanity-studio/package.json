@@ -17,12 +17,14 @@
   "dependencies": {
     "@sanity/client": "^6.9.0",
     "@sanity/color-input": "^3.1.0",
+    "@sanity/dashboard": "^3.1.6",
     "@sanity/vision": "^3.19.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "sanity": "^3.19.2",
-    "styled-components": "^6.0.7"
+    "sanity-plugin-dashboard-widget-netlify": "^2.0.1",
+    "styled-components": "^6.1.6"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^3.0.1",
