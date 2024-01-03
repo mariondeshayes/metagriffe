@@ -5,6 +5,7 @@ import {schemaTypes} from './schemas'
 import {colorInput} from '@sanity/color-input'
 import {netlifyWidget} from 'sanity-plugin-dashboard-widget-netlify'
 import {dashboardTool} from '@sanity/dashboard'
+import {media} from 'sanity-plugin-media'
 
 // Define the actions that should be available for singleton documents
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -43,6 +44,7 @@ export default defineConfig({
     }),
     ,
     visionTool(),
+    media(),
     dashboardTool({
       widgets: [
         netlifyWidget({
