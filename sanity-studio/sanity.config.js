@@ -46,6 +46,7 @@ export default defineConfig({
     visionTool(),
     media(),
     dashboardTool({
+      title: 'Netlify',
       widgets: [
         netlifyWidget({
           title: 'Déployer sur Netlify',
