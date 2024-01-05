@@ -59,41 +59,42 @@ const scrollProperty = {
       class=`grid grid-cols-12 gap-y-8 lg:gap-12 js-infinite-scroll__content`
       aria-live="polite">
       {
-        data.map((post, index) => {
-          if (node.size) {
-            if (index == 0) {
-              return (
-                <PostsXL
-                  slug={`/${post.slug}`}
-                  h1={post.h1}
-                  img={post.img}
-                  cat={post.cat}
-                  abstract={post.abstract}
-                />
-              );
-            } else if (index < 4) {
-              return (
-                <PostsXS
-                  slug={`/${post.slug}`}
-                  h1={post.h1}
-                  img={post.img}
-                  cat={post.cat}
-                />
-              );
+        data.map &&
+          data.map((post, index) => {
+            if (node.size) {
+              if (index == 0) {
+                return (
+                  <PostsXL
+                    slug={`/${post.slug}`}
+                    h1={post.h1}
+                    img={post.img}
+                    cat={post.cat}
+                    abstract={post.abstract}
+                  />
+                );
+              } else if (index < 4) {
+                return (
+                  <PostsXS
+                    slug={`/${post.slug}`}
+                    h1={post.h1}
+                    img={post.img}
+                    cat={post.cat}
+                  />
+                );
+              }
+            } else {
+              if (index < 6) {
+                return (
+                  <PostsXS
+                    slug={`/${post.slug}`}
+                    h1={post.h1}
+                    img={post.img}
+                    cat={post.cat}
+                  />
+                );
+              }
             }
-          } else {
-            if (index < 6) {
-              return (
-                <PostsXS
-                  slug={`/${post.slug}`}
-                  h1={post.h1}
-                  img={post.img}
-                  cat={post.cat}
-                />
-              );
-            }
-          }
-        })
+          })
       }
     </div>
   </div>

@@ -20,34 +20,35 @@ const { node } = Astro.props;
   }
   <div class="mx-4 md:mx-auto flex flex-col gap-8 md:gap-0">
     {
-      node.services.map((service) => (
-        <a
-          href={`/${service.href}`}
-          class="service-item w-full md:border-t-2 py-16 border-[var(--textColor)] flex flex-col md:grid md:grid-cols-12">
-          <div class="col-span-4 h-72 animate" data-anim="fadeIn">
-            <Image
-              src={service.img.src}
-              alt={service.img.alt}
-              class="h-full object-cover"
-              sizes="(min-width: 768px) 33vw, 100vw"
-              loading={service.img.eager ? "eager" : "lazy"}
-            />
-          </div>
-          <div class="col-span-6 flex flex-col justify-between px-4">
-            <h3
-              class="text-xl uppercase font-extrabold my-4 animate"
-              data-anim="fadeInLeft"
-              set:html={service.h3}
-            />
-            <div class="animate" data-anim="fadeInRight">
-              <PortableText value={service.text} />
-              <p class="my-4 btn border hover:border hover:border-[var(--textColor)]">
-                {service.ancre}
-              </p>
+      node.services &&
+        node.services.map((service) => (
+          <a
+            href={`/${service.href}`}
+            class="service-item w-full md:border-t-2 py-16 border-[var(--textColor)] flex flex-col md:grid md:grid-cols-12">
+            <div class="col-span-4 h-72 animate" data-anim="fadeIn">
+              <Image
+                src={service.img.src}
+                alt={service.img.alt}
+                class="h-full object-cover"
+                sizes="(min-width: 768px) 33vw, 100vw"
+                loading={service.img.eager ? "eager" : "lazy"}
+              />
             </div>
-          </div>
-        </a>
-      ))
+            <div class="col-span-6 flex flex-col justify-between px-4">
+              <h3
+                class="text-xl uppercase font-extrabold my-4 animate"
+                data-anim="fadeInLeft"
+                set:html={service.h3}
+              />
+              <div class="animate" data-anim="fadeInRight">
+                <PortableText value={service.text} />
+                <p class="my-4 btn border hover:border hover:border-[var(--textColor)]">
+                  {service.ancre}
+                </p>
+              </div>
+            </div>
+          </a>
+        ))
     }
   </div>
 </section>

@@ -47,13 +47,14 @@ const endProperty = {
 
 <div class=`js-infinite-scroll js-infinite-scroll__content` {...endProperty}>
   {
-    page.data.map((post) => (
-      <PostsXS
-        slug={`/${post.slug}`}
-        h1={post.h1}
-        img={post.img}
-        cat={post.cat}
-      />
-    ))
+    page.data &&
+      page.data.map((post) => (
+        <PostsXS
+          slug={`/${post.slug}`}
+          h1={post.h1}
+          img={post.img}
+          cat={post.cat}
+        />
+      ))
   }
 </div>

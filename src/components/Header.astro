@@ -66,95 +66,96 @@ let data = await fetch(URLQUERY)
 
       <ul class="f-header__list grow basis-0 lg:justify-center">
         {
-          data.links.map((el) => {
-            if (el.url) {
-              if (el.subpages) {
-                return (
-                  <li class="f-header__item">
-                    <a
-                      href={`/${el.url}`}
-                      class={
-                        currentPath == el.url
-                          ? "f-header__link active"
-                          : "f-header__link"
-                      }>
-                      <span>{el.nom}</span>
-                      <svg
-                        class="f-header__dropdown-icon icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
-                        aria-hidden="true"
-                        viewBox="0 0 12 12">
-                        <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z" />
-                      </svg>
-                    </a>
-                    <ul class="f-header__dropdown">
-                      {el.subpages.map((item) => (
-                        <li>
-                          <a
-                            href={`/${item.url}`}
-                            class={
-                              currentPath == item.url
-                                ? "f-header__dropdown-link active"
-                                : "f-header__dropdown-link"
-                            }>
-                            {item.nom}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                );
+          data.links &&
+            data.links.map((el) => {
+              if (el.url) {
+                if (el.subpages) {
+                  return (
+                    <li class="f-header__item">
+                      <a
+                        href={`/${el.url}`}
+                        class={
+                          currentPath == el.url
+                            ? "f-header__link active"
+                            : "f-header__link"
+                        }>
+                        <span>{el.nom}</span>
+                        <svg
+                          class="f-header__dropdown-icon icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
+                          aria-hidden="true"
+                          viewBox="0 0 12 12">
+                          <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z" />
+                        </svg>
+                      </a>
+                      <ul class="f-header__dropdown">
+                        {el.subpages.map((item) => (
+                          <li>
+                            <a
+                              href={`/${item.url}`}
+                              class={
+                                currentPath == item.url
+                                  ? "f-header__dropdown-link active"
+                                  : "f-header__dropdown-link"
+                              }>
+                              {item.nom}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  );
+                } else {
+                  return (
+                    <li class="f-header__item">
+                      <a
+                        href={`/${el.url}`}
+                        class={
+                          currentPath == el.url
+                            ? "f-header__link active"
+                            : "f-header__link"
+                        }>
+                        {el.nom}
+                      </a>
+                    </li>
+                  );
+                }
               } else {
-                return (
-                  <li class="f-header__item">
-                    <a
-                      href={`/${el.url}`}
-                      class={
-                        currentPath == el.url
-                          ? "f-header__link active"
-                          : "f-header__link"
-                      }>
-                      {el.nom}
-                    </a>
-                  </li>
-                );
+                if (el.subpages) {
+                  return (
+                    <li class="f-header__item">
+                      <div class="f-header__notlink">
+                        <span>{el.nom}</span>
+                        <svg
+                          class="f-header__dropdown-icon icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
+                          aria-hidden="true"
+                          viewBox="0 0 12 12">
+                          <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z" />
+                        </svg>
+                      </div>
+                      <ul class="f-header__dropdown">
+                        {el.subpages.map((item) => (
+                          <li>
+                            <a
+                              href={`/${item.url}/`}
+                              class={
+                                currentPath == item.url
+                                  ? "f-header__dropdown-link active"
+                                  : "f-header__dropdown-link"
+                              }>
+                              {item.nom}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
+                  );
+                } else {
+                  return (
+                    <li class="f-header__item f-header__notlink">{el.nom}</li>
+                  );
+                }
               }
-            } else {
-              if (el.subpages) {
-                return (
-                  <li class="f-header__item">
-                    <div class="f-header__notlink">
-                      <span>{el.nom}</span>
-                      <svg
-                        class="f-header__dropdown-icon icon h-[24px] w-[24px] inline-block text-inherit fill-current leading-none shrink-0"
-                        aria-hidden="true"
-                        viewBox="0 0 12 12">
-                        <path d="M9.943,4.269A.5.5,0,0,0,9.5,4h-7a.5.5,0,0,0-.41.787l3.5,5a.5.5,0,0,0,.82,0l3.5-5A.5.5,0,0,0,9.943,4.269Z" />
-                      </svg>
-                    </div>
-                    <ul class="f-header__dropdown">
-                      {el.subpages.map((item) => (
-                        <li>
-                          <a
-                            href={`/${item.url}/`}
-                            class={
-                              currentPath == item.url
-                                ? "f-header__dropdown-link active"
-                                : "f-header__dropdown-link"
-                            }>
-                            {item.nom}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                );
-              } else {
-                return (
-                  <li class="f-header__item f-header__notlink">{el.nom}</li>
-                );
-              }
-            }
-          })
+            })
         }
       </ul>
     </div>

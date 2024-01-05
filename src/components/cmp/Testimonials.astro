@@ -9,26 +9,27 @@ const { node } = Astro.props;
 
   <ul class="slideshow__content">
     {
-      node.testimonials.map((item) => (
-        <li class="slideshow__item text-center js-slideshow__item">
-          <div class="w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-3xl">
-            <blockquote class="text-lg lg:text-3xl leading-snug lg:leading-snug">
-              <div class="text-ellipsis line-clamp-4 overflow-hidden">
-                &#34;{item.quote}&#34;
-              </div>
-            </blockquote>
+      node.testimonials &&
+        node.testimonials.map((item) => (
+          <li class="slideshow__item text-center js-slideshow__item">
+            <div class="w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-3xl">
+              <blockquote class="text-lg lg:text-3xl leading-snug lg:leading-snug">
+                <div class="text-ellipsis line-clamp-4 overflow-hidden">
+                  &#34;{item.quote}&#34;
+                </div>
+              </blockquote>
 
-            <footer class="mt-5 lg:mt-8">
-              <cite class="text-sm lg:text-base">
-                <strong class="not-italic leading-tight">{item.name}</strong>
-                <span class="not-italic block mt-0.5 lg:mt-1 leading-tight">
-                  {item.job}
-                </span>
-              </cite>
-            </footer>
-          </div>
-        </li>
-      ))
+              <footer class="mt-5 lg:mt-8">
+                <cite class="text-sm lg:text-base">
+                  <strong class="not-italic leading-tight">{item.name}</strong>
+                  <span class="not-italic block mt-0.5 lg:mt-1 leading-tight">
+                    {item.job}
+                  </span>
+                </cite>
+              </footer>
+            </div>
+          </li>
+        ))
     }
   </ul>
 

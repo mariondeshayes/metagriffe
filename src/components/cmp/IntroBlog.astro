@@ -18,15 +18,16 @@ import Image from "../Image.astro";
   />
   <ul class="font-extrabold text-xl flex gap-8 justify-center list-none">
     {
-      data.cat.map((item, i) => (
-        <li
-          class={`bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1 animate ${
-            i == 0 ? "" : `animDelayx${i}`
-          }`}
-          data-anim="fadeInRight">
-          <a href={`/blog/?filter=${item}`}>{item}</a>
-        </li>
-      ))
+      data.cat &&
+        data.cat.map((item, i) => (
+          <li
+            class={`bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1 animate ${
+              i == 0 ? "" : `animDelayx${i}`
+            }`}
+            data-anim="fadeInRight">
+            <a href={`/blog/?filter=${item}`}>{item}</a>
+          </li>
+        ))
     }
   </ul>
 </section>

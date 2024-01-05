@@ -23,43 +23,44 @@ const { node } = Astro.props;
     data-animation="on"
     data-multi-items="on">
     {
-      node.questions.map((el, i) => (
-        <li
-          class={`accordion__item js-accordion__item animate ${
-            i == 0 ? "" : `animDelay${i}x`
-          }`}
-          data-anim="fadeInRight">
-          <button
-            class="accordion__header py-3 lg:py-5 px-5 lg:px-8 js-tab-focus"
-            type="button">
-            <span
-              class="text-lg lg:text-2xl font-semibold"
-              set:html={el.question}
-            />
+      node.questions &&
+        node.questions.map((el, i) => (
+          <li
+            class={`accordion__item js-accordion__item animate ${
+              i == 0 ? "" : `animDelay${i}x`
+            }`}
+            data-anim="fadeInRight">
+            <button
+              class="accordion__header py-3 lg:py-5 px-5 lg:px-8 js-tab-focus"
+              type="button">
+              <span
+                class="text-lg lg:text-2xl font-semibold"
+                set:html={el.question}
+              />
 
-            <svg
-              class="icon h-[20px] w-[20px] inline-block text-inherit fill-current leading-none shrink-0 accordion__icon-plus no-js:is-hidden"
-              viewBox="0 0 20 20"
-              aria-hidden="true">
-              <g
-                class="icon__group"
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round">
-                <line x1="2" y1="10" x2="18" y2="10" />
-                <line x1="10" y1="18" x2="10" y2="2" />
-              </g>
-            </svg>
-          </button>
+              <svg
+                class="icon h-[20px] w-[20px] inline-block text-inherit fill-current leading-none shrink-0 accordion__icon-plus no-js:is-hidden"
+                viewBox="0 0 20 20"
+                aria-hidden="true">
+                <g
+                  class="icon__group"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <line x1="2" y1="10" x2="18" y2="10" />
+                  <line x1="10" y1="18" x2="10" y2="2" />
+                </g>
+              </svg>
+            </button>
 
-          <div class="accordion__panel pt-1.5 lg:pt-2 px-5 lg:px-8 pb-5 lg:pb-8 js-accordion__panel">
-            <div>
-              <PortableText value={el.answer} />
+            <div class="accordion__panel pt-1.5 lg:pt-2 px-5 lg:px-8 pb-5 lg:pb-8 js-accordion__panel">
+              <div>
+                <PortableText value={el.answer} />
+              </div>
             </div>
-          </div>
-        </li>
-      ))
+          </li>
+        ))
     }
   </ul>
 

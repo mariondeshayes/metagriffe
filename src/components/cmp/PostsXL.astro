@@ -28,11 +28,12 @@ const { slug, img, h1, cat, abstract } = Astro.props;
         <ul
           class="font-extrabold text-xl flex flex-wrap gap-4 justify-center list-none">
           {
-            cat.map((item) => (
-              <li class="bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1">
-                <button class="catSelector">{item}</button>
-              </li>
-            ))
+            cat &&
+              cat.map((item) => (
+                <li class="bg-[var(--textColor)] text-[var(--accent1Color)] px-2 py-1">
+                  <button class="catSelector">{item}</button>
+                </li>
+              ))
           }
         </ul>
       </div>

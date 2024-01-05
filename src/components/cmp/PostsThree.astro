@@ -10,16 +10,17 @@ console.log(node);
     class=`w-[calc(100%_-_2.5rem)] lg:w-[calc(100%_-_4rem)] mx-auto max-w-lg md:max-w-3xl lg:max-w-5xl xl:max-w-7xl`>
     <div class=`grid grid-cols-12 gap-y-8 lg:gap-12`>
       {
-        node.posts.map((post) => {
-          return (
-            <PostsXS
-              slug={`/${post.slug}`}
-              h1={post.h1}
-              img={post.img}
-              cat={post.cat}
-            />
-          );
-        })
+        node.posts &&
+          node.posts.map((post) => {
+            return (
+              <PostsXS
+                slug={`/${post.slug}`}
+                h1={post.h1}
+                img={post.img}
+                cat={post.cat}
+              />
+            );
+          })
       }
     </div>
   </div>

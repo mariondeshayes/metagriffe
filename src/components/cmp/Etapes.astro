@@ -22,20 +22,21 @@ const { node } = Astro.props;
   <ol
     class="list-decimal list-inside flex flex-col md:flex-row w-full xl:w-[65%]">
     {
-      node.etapes.map((etape, i) => {
-        return (
-          <li
-            class={`md:w-1/${node.etapes.length} animate ${
-              i == 0 ? "" : `animDelayx${i}`
-            }`}
-            data-anim="fadeInRight">
-            <h3 set:html={etape.h3} />
-            <div>
-              <PortableText value={etape.text} />
-            </div>
-          </li>
-        );
-      })
+      node.etapes &&
+        node.etapes.map((etape, i) => {
+          return (
+            <li
+              class={`md:w-1/${node.etapes.length} animate ${
+                i == 0 ? "" : `animDelayx${i}`
+              }`}
+              data-anim="fadeInRight">
+              <h3 set:html={etape.h3} />
+              <div>
+                <PortableText value={etape.text} />
+              </div>
+            </li>
+          );
+        })
     }
   </ol>
 </section>
