@@ -1,6 +1,7 @@
 ---
 import PostsXL from "./PostsXL.astro";
 import PostsXS from "./PostsXS.astro";
+import Filtres from "./Filtres.astro";
 
 let QUERYBLOG, URLBLOG;
 
@@ -45,6 +46,7 @@ const scrollProperty = {
 };
 ---
 
+<Filtres />
 <section id="blogPosts" class="relative z-[1] pb-12 lg:pb-20">
   <div
     {...scrollProperty}
