@@ -27,10 +27,13 @@ for (let i = 0; i < tmp.length; i++) {
 
 //Generate the css
 let css = `body{font-family: ${fontFamilies[0]}}\n`;
+css += `.font1{font-family: ${fontFamilies[0]}}`;
 if (fontFamilies.length > 1) {
   css += `h1,h2,h3,h4,h5,h6{font-family: ${fontFamilies[1]}}`;
+  css += `.font2{font-family: ${fontFamilies[1]}}`;
 } else {
   css += `h1,h2,h3,h4,h5,h6{font-family: ${fontFamilies[0]}}`;
+  css += `.font2{font-family: ${fontFamilies[0]}}`;
 }
 ---
 
