@@ -8,6 +8,14 @@ const data = await fetch(url)
     return result[0]
   })
 
+let cat
+
+if (!data) {
+  cat = ''
+} else {
+  cat = data.cat
+}
+
 export default {
   name: 'post',
   type: 'document',
@@ -69,7 +77,7 @@ export default {
       type: 'array',
       of: [{type: 'string'}],
       options: {
-        list: data.cat,
+        list: cat,
       },
     },
     {
@@ -185,6 +193,7 @@ export default {
         {type: 'allposts'},
         {type: 'testimonials'},
         {type: 'threeposts'},
+        {type: 'blocImg'},
       ],
     },
   ],
