@@ -1,0 +1,35 @@
+---
+import Image from "../Image.astro";
+import HN from "../HN.astro";
+
+const { node } = Astro.props;
+if (!node.height) {
+  node.height = "h-full w-auto object-cover";
+} else {
+  node.height += " w-auto object-cover";
+}
+---
+
+<section
+  class="flex justify-center items-center gap-4 border-b-4 border-[var(--textColor)] py-4 relative">
+  <div class="absolute">
+    {
+      node.titre && (
+        <HN
+          content={node.titre}
+          class={`px-4 text-2xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 animate ${node.color}`}
+          anim="fadeInLeft"
+          Level={node.lvl}
+        />
+      )
+    }
+  </div>
+  <div>
+    <Image
+      src={node.img.src}
+      alt={node.img.alt}
+      loading={node.img.eager ? "eager" : "lazy"}
+      class={node.height}
+    />
+  </div>
+</section>

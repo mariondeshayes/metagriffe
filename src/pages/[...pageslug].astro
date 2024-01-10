@@ -18,6 +18,7 @@ export async function getStaticPaths() {
     `*[_type == "page"]{
     "seo": {title,description,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
     content[]{
+      _type == "blocImg" => {_type, titre, lvl, img{alt, 'src':asset->url}, height, color},
       _type == "threeposts" => {_type,'posts':posts[]->{h1,abstract,slug,img{alt,'src':asset->url},cat}},
       _type == "testimonials" => {_type, testimonials},
       _type == "allposts" => {_type,size},

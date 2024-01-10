@@ -13,6 +13,7 @@ import etapes from './cmp/etapes'
 import allposts from './cmp/allposts'
 import testimonials from './cmp/testimonials'
 import threeposts from './cmp/threeposts'
+import blocImg from './cmp/hero2'
 
 export const schemaTypes = [
   global,
@@ -30,4 +31,5 @@ export const schemaTypes = [
   allposts,
   testimonials,
   threeposts,
+  blocImg,
 ]

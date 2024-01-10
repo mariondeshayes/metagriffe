@@ -23,6 +23,7 @@ export async function getStaticPaths() {
     "seo": {title,description,slug,robots,canonical,schema,"ogimage":ogimage.asset->url},
     "blog": {h1,abstract,img{alt,'src':asset->url}, twitterText, twitterHashtags, pinterestDescription, mailObject, mailBody, cat},
     content[]{
+      _type == "blocImg" => {_type, titre, lvl, img{alt, 'src':asset->url}, height, color},
       _type == "threeposts" => {_type,'posts':posts[]->{h1,abstract,slug,img{alt,'src':asset->url},cat}},
       _type == "testimonials" => {_type, testimonials},
       _type == "hero" => {_type,titre,lvl,p,btn,img{alt,'src':asset->url}},

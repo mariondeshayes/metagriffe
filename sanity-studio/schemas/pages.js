@@ -103,6 +103,7 @@ export default {
         {type: 'allposts'},
         {type: 'testimonials'},
         {type: 'threeposts'},
+        {type: 'blocImg'},
       ],
     },
   ],
