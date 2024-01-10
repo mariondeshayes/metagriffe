@@ -35,17 +35,23 @@ const { node } = Astro.props;
               />
             </div>
             <div class="col-span-6 flex flex-col justify-between px-4">
-              <h3
-                class="text-xl uppercase font-extrabold my-4 animate"
-                data-anim="fadeInLeft"
-                set:html={service.h3}
-              />
-              <div class="animate" data-anim="fadeInRight">
-                <PortableText value={service.text} />
-                <p class="my-4 btn border hover:border hover:border-[var(--textColor)]">
-                  {service.ancre}
-                </p>
-              </div>
+              {service.h3 && (
+                <h3
+                  class="text-xl uppercase font-extrabold my-4 animate"
+                  data-anim="fadeInLeft"
+                  set:html={service.h3}
+                />
+              )}
+              {service.text && (
+                <div class="animate" data-anim="fadeInRight">
+                  <PortableText value={service.text} />
+                  {service.ancre && (
+                    <p class="my-4 btn border hover:border hover:border-[var(--textColor)]">
+                      {service.ancre}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           </a>
         ))

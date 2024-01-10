@@ -5,32 +5,51 @@ import HN from "../HN.astro";
 const { node } = Astro.props;
 ---
 
-<section
-  class="flex flex-col lg:flex-row justify-center items-center gap-4 border-t-4 border-b-4 border-[var(--textColor)] -mt-1">
-  <div
-    class="flex-0 w-full lg:w-3/5 frame px-4 border-b-4 lg:border-b-0 lg:border-r-4 border-[var(--textColor)] bg-[var(--accent1Color)] text-[var(--textColor)] py-8">
-    <HN
-      class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate toBeFadedInLeft"
-      anim="fadeInLeft"
-      content={node.titre}
-      Level={node.lvl}
-    />
-  </div>
-  <div class="flex-0 w-full lg:w-2/5 z-10 flex flex-col p-4">
-    {
-      node.text && (
+{
+  node.text && (
+    <section class="flex flex-col lg:flex-row justify-center items-stretch gap-4 border-t-4 border-b-4 border-[var(--textColor)] -mt-1">
+      <div class="flex-0 w-full lg:w-3/5 frame px-4 border-b-4 lg:border-b-0 lg:border-r-4 border-[var(--textColor)] bg-[var(--accent1Color)] text-[var(--textColor)] py-8">
+        <HN
+          class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate toBeFadedInLeft"
+          anim="fadeInLeft"
+          content={node.titre}
+          Level={node.lvl}
+        />
+      </div>
+      <div class="flex-0 w-full lg:w-2/5 z-10 flex flex-col p-4 box-border">
         <div
-          class="text-lg sm:text-xl md:text-2xl xl:text-3xl mb-8 font-extrabold animate "
+          class="text-lg sm:text-xl md:text-2xl xl:text-3xl mb-8 animate "
           data-anim="fadeInRight">
           <PortableText value={node.text} />
         </div>
-      )
-    }
-    <a
-      class="btn border hover:border hover:border-[var(--textColor)] w-fit animate animDelayx1"
-      data-anim="fadeInRight"
-      href={node.btn.href}>
-      {node.btn.ancre}
-    </a>
-  </div>
-</section>
+
+        <a
+          class="btn border-4 hover:border-4 hover:border-[var(--textColor)] w-fit animate animDelayx1"
+          data-anim="fadeInRight"
+          href={node.btn.href}>
+          {node.btn.ancre}
+        </a>
+      </div>
+    </section>
+  )
+}
+{
+  !node.text && (
+    <section class="flex flex-col lg:flex-row justify-center items-stretch gap-4 border-t-4 border-b-4 border-[var(--textColor)] -mt-1">
+      <div class="flex-0 w-full frame px-4 border-b-4 lg:border-b-0 lg:border-r-4 border-[var(--textColor)] bg-[var(--accent1Color)] text-[var(--textColor)] py-8">
+        <HN
+          class="text-3xl sm:text-4xl md:text-6xl xl:text-8xl font-extrabold uppercase mb-4 break-words hyphens-auto animate toBeFadedInLeft"
+          anim="fadeInLeft"
+          content={node.titre}
+          Level={node.lvl}
+        />
+        <a
+          class="btn alternative bg-[var(--bgColor)] border-4 hover:border-4 hover:border-[var(--textColor)] w-fit animate animDelayx1 float-right"
+          data-anim="fadeInRight"
+          href={node.btn.href}>
+          {node.btn.ancre}
+        </a>
+      </div>
+    </section>
+  )
+}

@@ -30,7 +30,6 @@ html::-webkit-scrollbar {
 
 .btn {
   @apply text-lg md:text-2xl whitespace-nowrap;
-  background-color: var(--accent1Color);
   color: var(--textColor);
   padding-block: 0.4rem;
   padding-inline: 0.7rem;
@@ -41,6 +40,10 @@ html::-webkit-scrollbar {
     background-color: var(--bgColor);
     color: var(--textColor);
   }
+}
+
+.btn:not(.alternative) {
+  background-color: var(--accent1Color);
 }
 
 .small-separator {
