@@ -55,6 +55,7 @@ export default {
               title: 'Image',
               type: 'image',
               fields: [{name: 'alt', title: 'Texte alternatif', type: 'string'}],
+              validation: (Rule) => Rule.required().warning("L'image est obligatoire"),
             },
             {
               name: 'h3',
@@ -72,6 +73,7 @@ export default {
               type: 'reference',
               title: 'Choix de la page',
               to: [{type: 'page'}],
+              validation: (Rule) => Rule.required().warning('Le choix de la page est obligatoire'),
             },
             {
               name: 'ancre',
