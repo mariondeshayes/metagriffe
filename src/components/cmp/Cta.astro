@@ -22,13 +22,14 @@ const { node } = Astro.props;
           data-anim="fadeInRight">
           <PortableText value={node.text} />
         </div>
-
-        <a
-          class="btn border-4 hover:border-4 hover:border-[var(--textColor)] w-fit animate animDelayx1"
-          data-anim="fadeInRight"
-          href={node.btn.href}>
-          {node.btn.ancre}
-        </a>
+        {node.btn && (
+          <a
+            class="btn border-4 hover:border-4 hover:border-[var(--textColor)] w-fit animate animDelayx1"
+            data-anim="fadeInRight"
+            href={node.btn.href}>
+            {node.btn.ancre}
+          </a>
+        )}
       </div>
     </section>
   )
@@ -43,12 +44,14 @@ const { node } = Astro.props;
           content={node.titre}
           Level={node.lvl}
         />
-        <a
-          class="btn alternative bg-[var(--bgColor)] border-4 hover:border-4 hover:border-[var(--textColor)] w-fit animate animDelayx1 float-right"
-          data-anim="fadeInRight"
-          href={node.btn.href}>
-          {node.btn.ancre}
-        </a>
+        {node.btn && (
+          <a
+            class="btn alternative bg-[var(--bgColor)] border-4 hover:border-4 hover:border-[var(--textColor)] w-fit animate animDelayx1 float-right"
+            data-anim="fadeInRight"
+            href={node.btn.href}>
+            {node.btn.ancre}
+          </a>
+        )}
       </div>
     </section>
   )

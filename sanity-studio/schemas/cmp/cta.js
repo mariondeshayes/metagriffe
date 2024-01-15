@@ -57,7 +57,6 @@ export default {
         },
         {name: 'ancre', title: 'Texte', type: 'string'},
       ],
-      validation: (Rule) => Rule.required().warning('Le bouton est obligatoire'),
     },
   ],
 }
