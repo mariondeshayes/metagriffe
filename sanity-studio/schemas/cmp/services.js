@@ -73,7 +73,6 @@ export default {
               type: 'reference',
               title: 'Choix de la page',
               to: [{type: 'page'}],
-              validation: (Rule) => Rule.required().warning('Le choix de la page est obligatoire'),
             },
             {
               name: 'ancre',
