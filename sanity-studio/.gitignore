@@ -31,3 +31,6 @@
 # environment variables
 .env
 .env.production
+
+# templatedata.tar.gz to inject data into newly created dataset
+templatedata.tar.gz
