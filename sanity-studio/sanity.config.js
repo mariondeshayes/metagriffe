@@ -14,7 +14,7 @@ const singletonTypes = new Set(['global'])
 
 export default defineConfig({
   name: 'default',
-  title: 'Des mots et des clics',
+  title: 'Template brutalism',
 
   projectId: `${process.env.SANITY_STUDIO_PROJECT_ID}`,
   dataset: `${process.env.SANITY_STUDIO_DATASET}`,
@@ -53,10 +53,10 @@ export default defineConfig({
           sites: [
             {
               title: 'Website',
-              apiId: '1c8dff9c-3a61-4027-a278-89e3d0936b76',
-              buildHookId: '659e9707c96d52e3108af5a1',
-              name: 'desmotsetdesclics',
-              url: 'https://desmotsetdesclics.netlify.app',
+              apiId: '915176c4-f630-4386-828b-d765959cd3fa',
+              buildHookId: '65946c08e1f7890b17f1d149',
+              name: 'templatebrutalism',
+              url: 'https://huitquatre-template1.netlify.app',
             },
           ],
         }),
