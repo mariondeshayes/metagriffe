@@ -4,6 +4,14 @@ import Image from "../Image.astro";
 import HN from "../HN.astro";
 
 const { node } = Astro.props;
+
+let layout;
+
+if (node.services[0].text || node.services[0].h3) {
+  layout = "normal";
+} else {
+  layout = "gallery";
+}
 ---
 
 <section class="w-full border-y-4 border-[var(--textColor)]">
@@ -18,48 +26,132 @@ const { node } = Astro.props;
       />
     )
   }
-  <div class="mx-4 md:mx-auto flex flex-col gap-8 md:gap-0">
-    {
-      node.services &&
-        node.services.map((service) => (
-          <a
-            href={`/${service.href}`}
-            class="service-item w-full md:border-t-2 py-16 border-[var(--textColor)] flex flex-col md:grid md:grid-cols-12">
-            <div class="col-span-4 h-72 animate" data-anim="fadeIn">
-              <Image
-                src={service.img.src}
-                alt={service.img.alt}
-                class="h-full object-cover"
-                sizes="(min-width: 768px) 33vw, 100vw"
-                loading={service.img.eager ? "eager" : "lazy"}
-              />
-            </div>
-            <div class="col-span-6 flex flex-col justify-between px-4">
-              {service.h3 && (
-                <h3
-                  class="text-xl uppercase font-extrabold my-4 animate"
-                  data-anim="fadeInLeft"
-                  set:html={service.h3}
-                />
-              )}
-              {service.text && (
-                <div class="animate" data-anim="fadeInRight">
-                  <PortableText value={service.text} />
-                  {service.ancre && (
-                    <p class="my-4 btn border hover:border hover:border-[var(--textColor)]">
-                      {service.ancre}
-                    </p>
-                  )}
+  {
+    layout == "normal" && (
+      <div class="mx-4 md:mx-auto flex flex-col gap-8 md:gap-0">
+        {node.services &&
+          node.services.map((service) => {
+            if (service.href) {
+              return (
+                <a
+                  href={`/${service.href}`}
+                  class="service-item w-full md:border-t-2 py-16 border-[var(--textColor)] flex flex-col md:grid md:grid-cols-12">
+                  <div class="col-span-4 h-72 animate" data-anim="fadeIn">
+                    <Image
+                      src={service.img.src}
+                      alt={service.img.alt}
+                      class="h-full object-cover"
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      loading={service.img.eager ? "eager" : "lazy"}
+                    />
+                  </div>
+                  <div class="col-span-6 flex flex-col justify-between px-4">
+                    {service.h3 && (
+                      <h3
+                        class="text-xl uppercase font-extrabold my-4 animate"
+                        data-anim="fadeInLeft"
+                        set:html={service.h3}
+                      />
+                    )}
+                    {service.text && (
+                      <div class="animate" data-anim="fadeInRight">
+                        <PortableText value={service.text} />
+                        {service.ancre && (
+                          <p class="my-4 btn border hover:border hover:border-[var(--textColor)]">
+                            {service.ancre}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </a>
+              );
+            } else {
+              return (
+                <div class="service-item w-full md:border-t-2 py-16 border-[var(--textColor)] flex flex-col md:grid md:grid-cols-12">
+                  <div class="col-span-4 h-72 animate" data-anim="fadeIn">
+                    <Image
+                      src={service.img.src}
+                      alt={service.img.alt}
+                      class="h-full object-cover"
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      loading={service.img.eager ? "eager" : "lazy"}
+                    />
+                  </div>
+                  <div class="col-span-6 flex flex-col justify-between px-4">
+                    {service.h3 && (
+                      <h3
+                        class="text-xl uppercase font-extrabold my-4 animate"
+                        data-anim="fadeInLeft"
+                        set:html={service.h3}
+                      />
+                    )}
+                    {service.text && (
+                      <div class="animate" data-anim="fadeInRight">
+                        <PortableText value={service.text} />
+                        {service.ancre && (
+                          <p class="my-4 btn border hover:border hover:border-[var(--textColor)]">
+                            {service.ancre}
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              )}
-            </div>
-          </a>
-        ))
-    }
-  </div>
+              );
+            }
+          })}
+      </div>
+    )
+  }
+  {
+    layout == "gallery" && (
+      <div class="mx-4 md:mx-auto grid gap-4 grille">
+        {node.services &&
+          node.services.map((service) => {
+            if (service.href) {
+              return (
+                <a
+                  href={`/${service.href}`}
+                  class="max-w-1/4 py-16  flex flex-col md:grid md:grid-cols-12">
+                  <div class="col-span-12 h-72 animate" data-anim="fadeIn">
+                    <Image
+                      src={service.img.src}
+                      alt={service.img.alt}
+                      class="h-full object-cover"
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      loading={service.img.eager ? "eager" : "lazy"}
+                    />
+                  </div>
+                </a>
+              );
+            } else {
+              return (
+                <div class="py-16  flex flex-col md:grid md:grid-cols-12">
+                  <div class="col-span-12 h-72 animate" data-anim="fadeIn">
+                    <Image
+                      src={service.img.src}
+                      alt={service.img.alt}
+                      class="h-full object-cover"
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      loading={service.img.eager ? "eager" : "lazy"}
+                    />
+                  </div>
+                </div>
+              );
+            }
+          })}
+      </div>
+    )
+  }
 </section>
 
 <style>
+  @supports (width: min(250px, 100%)) {
+    .grille {
+      grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+    }
+  }
   .service-item + .service-item {
     @apply -mt-0.5;
   }
