@@ -5,6 +5,6 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://template-prof-en-redac.netlify.app/",
+  site: "https://metagriffe.fr/",
   integrations: [tailwind(), sitemap()],
 });
